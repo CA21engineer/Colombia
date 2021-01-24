@@ -16,4 +16,4 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.1
-    - run: xcodebuild -sdk iphonesimulator -scheme Colombia -project Colombia.xcodeproj
+    - run: xcodebuild -sdk iphonesimulator -scheme Colombia -workspace Colombia.xcworkspace
