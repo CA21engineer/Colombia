@@ -16,4 +16,8 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.1
+    - name: Bundle install
+      run: bundle
+    - name: Cocoapods install
+      run: bundle exec pod install
     - run: xcodebuild -sdk iphonesimulator -scheme Colombia -workspace Colombia.xcworkspace
