@@ -101,8 +101,28 @@
 				C6FD0B9FCFC645B29F52410E /* Pods-ColombiaTests.debug.xcconfig */,
 				C379A60FD773F83F8ADF9E87 /* Pods-ColombiaTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		6AB4665525D8FE930035A8FE /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = APIClient;
+			sourceTree = "<group>";
+		};
+		6AB4665625D8FECA0035A8FE /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		6AB4665725D8FF3D0035A8FE /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		8C308E62815BCE81D55BBE90 /* Frameworks */ = {
@@ -167,6 +187,9 @@
 		BF398A0825BDBAB1004FFB70 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6AB4665725D8FF3D0035A8FE /* Repository */,
+				6AB4665625D8FECA0035A8FE /* Entities */,
+				6AB4665525D8FE930035A8FE /* APIClient */,
 				BF3989D225BDBA65004FFB70 /* AppDelegate.swift */,
 				BF3989D425BDBA65004FFB70 /* SceneDelegate.swift */,
 				BF398A1425BDBB0D004FFB70 /* ViewController.swift */,
