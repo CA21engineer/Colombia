@@ -22,6 +22,13 @@
 		D77060A425D909D500E08916 /* WorksIndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060A225D909D500E08916 /* WorksIndexViewController.xib */; };
 		D77060AE25D90ABA00E08916 /* WorksDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060AC25D90ABA00E08916 /* WorksDetailViewController.swift */; };
 		D77060AF25D90ABA00E08916 /* WorksDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */; };
+		D77060C325D90DC700E08916 /* WorksIndexCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */; };
+		D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */; };
+		D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D77060CD25D9116E00E08916 /* ルフィ.jpeg */; };
+		D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060D425D9139000E08916 /* UIView+Extension.swift */; };
+		D77060DD25D94DF700E08916 /* favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060DC25D94DF700E08916 /* favorite.png */; };
+		D77060E225D94DFB00E08916 /* document.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060E125D94DFB00E08916 /* document.png */; };
+		D77060E725D954D100E08916 /* annict.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060E625D954D100E08916 /* annict.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +76,13 @@
 		D77060A225D909D500E08916 /* WorksIndexViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexViewController.xib; sourceTree = "<group>"; };
 		D77060AC25D90ABA00E08916 /* WorksDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksDetailViewController.swift; sourceTree = "<group>"; };
 		D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksDetailViewController.xib; sourceTree = "<group>"; };
+		D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksIndexCollectionViewCell.swift; sourceTree = "<group>"; };
+		D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexCollectionViewCell.xib; sourceTree = "<group>"; };
+		D77060CD25D9116E00E08916 /* ルフィ.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ルフィ.jpeg"; sourceTree = "<group>"; };
+		D77060D425D9139000E08916 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		D77060DC25D94DF700E08916 /* favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite.png; sourceTree = "<group>"; };
+		D77060E125D94DFB00E08916 /* document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = document.png; sourceTree = "<group>"; };
+		D77060E625D954D100E08916 /* annict.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = annict.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,8 +188,11 @@
 		BF398A0825BDBAB1004FFB70 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D77060CB25D9115900E08916 /* Assets */,
 				D77060B625D90AC400E08916 /* Detail */,
 				D77060A825D909F100E08916 /* Home */,
+				D77060C025D90D9300E08916 /* View */,
+				D77060D325D9137300E08916 /* Extension */,
 				BF3989D225BDBA65004FFB70 /* AppDelegate.swift */,
 				BF3989D425BDBA65004FFB70 /* SceneDelegate.swift */,
 			);
@@ -210,6 +227,42 @@
 				D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		D77060C025D90D9300E08916 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */,
+				D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D77060CB25D9115900E08916 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D77060CC25D9116500E08916 /* Image */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		D77060CC25D9116500E08916 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				D77060DC25D94DF700E08916 /* favorite.png */,
+				D77060E125D94DFB00E08916 /* document.png */,
+				D77060E625D954D100E08916 /* annict.png */,
+				D77060CD25D9116E00E08916 /* ルフィ.jpeg */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		D77060D325D9137300E08916 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D77060D425D9139000E08916 /* UIView+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,9 +373,14 @@
 			files = (
 				D77060AF25D90ABA00E08916 /* WorksDetailViewController.xib in Resources */,
 				D77060A425D909D500E08916 /* WorksIndexViewController.xib in Resources */,
+				D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */,
+				D77060E225D94DFB00E08916 /* document.png in Resources */,
 				BF3989DF25BDBA66004FFB70 /* LaunchScreen.storyboard in Resources */,
 				D770609D25D9099800E08916 /* WorksIndexTabViewController.xib in Resources */,
+				D77060E725D954D100E08916 /* annict.png in Resources */,
 				BF3989DC25BDBA66004FFB70 /* Assets.xcassets in Resources */,
+				D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */,
+				D77060DD25D94DF700E08916 /* favorite.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,7 +475,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D770609C25D9099800E08916 /* WorksIndexTabViewController.swift in Sources */,
+				D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */,
 				BF3989D325BDBA65004FFB70 /* AppDelegate.swift in Sources */,
+				D77060C325D90DC700E08916 /* WorksIndexCollectionViewCell.swift in Sources */,
 				BF3989D525BDBA65004FFB70 /* SceneDelegate.swift in Sources */,
 				D77060AE25D90ABA00E08916 /* WorksDetailViewController.swift in Sources */,
 				D77060A325D909D500E08916 /* WorksIndexViewController.swift in Sources */,
