@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ルフィ.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="D1T-Yy-J1n">
-                        <rect key="frame" x="0.0" y="0.0" width="159" height="159"/>
+                        <rect key="frame" x="5" y="5" width="149" height="149"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="D1T-Yy-J1n" secondAttribute="height" multiplier="1:1" id="H1E-ge-6bS"/>
                         </constraints>
@@ -48,23 +48,38 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lj2-8H-Rhi">
+                        <rect key="frame" x="134" y="0.0" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="9SR-HQ-UJN"/>
+                            <constraint firstAttribute="width" constant="25" id="iFY-B9-V1z"/>
+                            <constraint firstAttribute="width" secondItem="Lj2-8H-Rhi" secondAttribute="height" multiplier="1:1" id="j9F-2V-1bw"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="gray_heart.png"/>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="ipp-7H-qkx" firstAttribute="top" secondItem="D1T-Yy-J1n" secondAttribute="bottom" id="50w-dk-jK9"/>
-                <constraint firstAttribute="trailing" secondItem="D1T-Yy-J1n" secondAttribute="trailing" id="HWd-d2-hR2"/>
+                <constraint firstItem="ipp-7H-qkx" firstAttribute="top" secondItem="D1T-Yy-J1n" secondAttribute="bottom" constant="5" id="50w-dk-jK9"/>
+                <constraint firstItem="Lj2-8H-Rhi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="AdT-Pg-GFV"/>
+                <constraint firstAttribute="trailing" secondItem="D1T-Yy-J1n" secondAttribute="trailing" constant="5" id="HWd-d2-hR2"/>
                 <constraint firstAttribute="trailing" secondItem="ipp-7H-qkx" secondAttribute="trailing" id="IPS-l4-Jci"/>
                 <constraint firstAttribute="bottom" secondItem="ipp-7H-qkx" secondAttribute="bottom" id="PXm-Vw-hj4"/>
-                <constraint firstItem="D1T-Yy-J1n" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Pqb-An-Y0E"/>
+                <constraint firstItem="D1T-Yy-J1n" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="Pqb-An-Y0E"/>
                 <constraint firstItem="ipp-7H-qkx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZCs-g2-HlF"/>
-                <constraint firstItem="D1T-Yy-J1n" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ZMU-v7-cJW"/>
+                <constraint firstItem="D1T-Yy-J1n" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="ZMU-v7-cJW"/>
+                <constraint firstAttribute="trailing" secondItem="Lj2-8H-Rhi" secondAttribute="trailing" id="nXw-rI-Wa1"/>
             </constraints>
             <size key="customSize" width="159" height="189"/>
-            <point key="canvasLocation" x="219.56521739130437" y="130.24553571428572"/>
+            <connections>
+                <outlet property="favoriteButton" destination="Lj2-8H-Rhi" id="4sW-ZZ-1qg"/>
+            </connections>
+            <point key="canvasLocation" x="185" y="130"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="gray_heart.png" width="256" height="256"/>
         <image name="ルフィ.jpeg" width="225" height="225"/>
     </resources>
 </document>
