@@ -42,9 +42,4 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    
-//    @IBAction func favoriteButtonTapped(_ sender: Any) {
-//        isFavorite = isFavorite ? false : true
-//    }
-    
 }

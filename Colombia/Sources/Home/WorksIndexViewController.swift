@@ -40,8 +40,6 @@ class WorksIndexViewController: UIViewController {
         worksIndexCollectionView.backgroundView = bgImage
         
         favoriteStatus = [[Bool]](repeating: [Bool](repeating: false, count: 3), count: 9)
-        
-        // Do any additional setup after loading the view.
     }
 }
 
