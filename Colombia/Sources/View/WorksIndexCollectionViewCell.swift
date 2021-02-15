@@ -8,6 +8,7 @@
 import UIKit
 
 class WorksIndexCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var favoriteButton: UIButton!
     
     static var identifier: String {
         String(describing: self)

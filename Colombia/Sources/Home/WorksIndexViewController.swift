@@ -22,9 +22,9 @@ class WorksIndexViewController: UIViewController {
         
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:20, left:30, bottom:5, right: 30)
-        layout.minimumInteritemSpacing = 10
+        layout.minimumInteritemSpacing = 5
         let size = UIScreen.main.bounds.size
-        let cellSize = (size.width - 30) / 4
+        let cellSize = (size.width - 30) / 3.5
         layout.itemSize = CGSize(width: cellSize, height: cellSize + 15)
         worksIndexCollectionView.collectionViewLayout = layout
         

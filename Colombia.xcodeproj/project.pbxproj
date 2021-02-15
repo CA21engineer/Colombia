@@ -29,6 +29,8 @@
 		D77060DD25D94DF700E08916 /* favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060DC25D94DF700E08916 /* favorite.png */; };
 		D77060E225D94DFB00E08916 /* document.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060E125D94DFB00E08916 /* document.png */; };
 		D77060E725D954D100E08916 /* annict.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060E625D954D100E08916 /* annict.png */; };
+		D77060EC25DA436300E08916 /* gray_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060EB25DA436300E08916 /* gray_heart.png */; };
+		D77060EE25DA436F00E08916 /* red_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D77060ED25DA436F00E08916 /* red_heart.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		D77060DC25D94DF700E08916 /* favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite.png; sourceTree = "<group>"; };
 		D77060E125D94DFB00E08916 /* document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = document.png; sourceTree = "<group>"; };
 		D77060E625D954D100E08916 /* annict.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = annict.png; sourceTree = "<group>"; };
+		D77060EB25DA436300E08916 /* gray_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gray_heart.png; sourceTree = "<group>"; };
+		D77060ED25DA436F00E08916 /* red_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_heart.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +257,8 @@
 				D77060E125D94DFB00E08916 /* document.png */,
 				D77060E625D954D100E08916 /* annict.png */,
 				D77060CD25D9116E00E08916 /* ルフィ.jpeg */,
+				D77060EB25DA436300E08916 /* gray_heart.png */,
+				D77060ED25DA436F00E08916 /* red_heart.png */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -375,11 +381,13 @@
 				D77060A425D909D500E08916 /* WorksIndexViewController.xib in Resources */,
 				D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */,
 				D77060E225D94DFB00E08916 /* document.png in Resources */,
+				D77060EC25DA436300E08916 /* gray_heart.png in Resources */,
 				BF3989DF25BDBA66004FFB70 /* LaunchScreen.storyboard in Resources */,
 				D770609D25D9099800E08916 /* WorksIndexTabViewController.xib in Resources */,
 				D77060E725D954D100E08916 /* annict.png in Resources */,
 				BF3989DC25BDBA66004FFB70 /* Assets.xcassets in Resources */,
 				D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */,
+				D77060EE25DA436F00E08916 /* red_heart.png in Resources */,
 				D77060DD25D94DF700E08916 /* favorite.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
