@@ -75,7 +75,7 @@
             <connections>
                 <outlet property="favoriteButton" destination="Lj2-8H-Rhi" id="4sW-ZZ-1qg"/>
             </connections>
-            <point key="canvasLocation" x="185" y="130"/>
+            <point key="canvasLocation" x="-176.08695652173915" y="4.3526785714285712"/>
         </collectionViewCell>
     </objects>
     <resources>

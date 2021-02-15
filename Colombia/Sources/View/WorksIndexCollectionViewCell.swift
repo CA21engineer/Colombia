@@ -6,9 +6,27 @@
 //
 
 import UIKit
+import RxSwift
 
 class WorksIndexCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
+    var disposeBag = DisposeBag()
+    var isFavorite : Bool = false {
+        didSet {
+            if isFavorite {
+                let image = UIImage(named: "red_heart.png")
+                favoriteButton.setBackgroundImage(image, for: .normal)
+            }
+            else {
+                let image = UIImage(named: "gray_heart.png")
+                favoriteButton.setBackgroundImage(image, for: .normal)
+            }
+        }
+    }
+    
+    override func prepareForReuse() {
+        disposeBag = DisposeBag()
+    }
     
     static var identifier: String {
         String(describing: self)
@@ -17,10 +35,16 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
     static var nib: UINib {
         UINib(nibName: identifier, bundle: nil)
     }
+    
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+//    @IBAction func favoriteButtonTapped(_ sender: Any) {
+//        isFavorite = isFavorite ? false : true
+//    }
+    
 }

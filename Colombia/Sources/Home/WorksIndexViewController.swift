@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class WorksIndexViewController: UIViewController {
     
@@ -16,10 +18,14 @@ class WorksIndexViewController: UIViewController {
             worksIndexCollectionView.register(WorksIndexCollectionViewCell.nib, forCellWithReuseIdentifier: WorksIndexCollectionViewCell.identifier)
         }
     }
+    private let disposeBag = DisposeBag()
+    
+    //状態の変化を保存しておく（仮）
+    private var favoriteStatus : [[ Bool ]] = [[]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:20, left:30, bottom:5, right: 30)
         layout.minimumInteritemSpacing = 5
@@ -33,6 +39,8 @@ class WorksIndexViewController: UIViewController {
         bgImage.contentMode = .scaleToFill
         worksIndexCollectionView.backgroundView = bgImage
         
+        favoriteStatus = [[Bool]](repeating: [Bool](repeating: false, count: 3), count: 9)
+        
         // Do any additional setup after loading the view.
     }
 }
@@ -40,6 +48,9 @@ class WorksIndexViewController: UIViewController {
 extension WorksIndexViewController : UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 9
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
 }
 
@@ -50,8 +61,15 @@ extension WorksIndexViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = worksIndexCollectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
+
+        cell.isFavorite = favoriteStatus[indexPath.section][indexPath.row]
+        cell.favoriteButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                print(indexPath)
+                cell.isFavorite = cell.isFavorite ? false : true
+                self?.favoriteStatus[indexPath.section][indexPath.row] = cell.isFavorite
+            })
+            .disposed(by: cell.disposeBag)
         return cell
     }
-    
-    
 }
