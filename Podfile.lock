@@ -1,3 +1,40 @@
-PODFILE CHECKSUM: e968e082bf3eb9a1db9828ed001b8c5a2fee96ff
+PODS:
+  - Nuke (9.2.4)
+  - Realm (10.5.1):
+    - Realm/Headers (= 10.5.1)
+  - Realm/Headers (10.5.1)
+  - RealmSwift (10.5.1):
+    - Realm (= 10.5.1)
+  - RxCocoa (6.0.0):
+    - RxRelay (= 6.0.0)
+    - RxSwift (= 6.0.0)
+  - RxRelay (6.0.0):
+    - RxSwift (= 6.0.0)
+  - RxSwift (6.0.0)
+
+DEPENDENCIES:
+  - Nuke
+  - RealmSwift
+  - RxCocoa
+  - RxSwift
+
+SPEC REPOS:
+  trunk:
+    - Nuke
+    - Realm
+    - RealmSwift
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+
+SPEC CHECKSUMS:
+  Nuke: 44439f7a92e665a4f927ecd73cb51f91d93b0e0c
+  Realm: 77fcb4e0b9f2963ea06f584749a0d7dc9cab95e1
+  RealmSwift: 6abe6aa6cd8b70cc1a87afcb9232cabea74ff1ac
+  RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
+  RxRelay: 8d593be109c06ea850df027351beba614b012ffb
+  RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295
+
+PODFILE CHECKSUM: bb3ce7e33d7576bb060e5dd46d58ee8afa87ccbc
 
 COCOAPODS: 1.10.1
