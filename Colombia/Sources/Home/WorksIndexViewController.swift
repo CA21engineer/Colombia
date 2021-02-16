@@ -76,7 +76,6 @@ extension WorksIndexViewController : UICollectionViewDataSource {
                 //*****Todo***
             })
             .disposed(by: cell.disposeBag)
-
         return cell
     }
 }
