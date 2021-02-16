@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6A2EE96A25DBB7D500AFB594 /* AnnictAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2EE96925DBB7D500AFB594 /* AnnictAPIRequest.swift */; };
+		6A2EE97025DBB9F500AFB594 /* AnnictWorksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2EE96F25DBB9F500AFB594 /* AnnictWorksModel.swift */; };
 		6AB4665925D908210035A8FE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4665825D908210035A8FE /* Requestable.swift */; };
 		6B118AA0DD1DDBFC3E036F7E /* Pods_ColombiaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE72A2CDE241865CB2D3FFAA /* Pods_ColombiaTests.framework */; };
 		8B3AFD0D8BE4903C16A77080 /* Pods_Colombia_ColombiaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FBA39CB0332A0C9EDBFD66 /* Pods_Colombia_ColombiaUITests.framework */; };
@@ -45,6 +46,7 @@
 		27A4CFF4D1AA7225DE9CC89E /* Pods-Colombia-ColombiaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Colombia-ColombiaUITests.release.xcconfig"; path = "Target Support Files/Pods-Colombia-ColombiaUITests/Pods-Colombia-ColombiaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		35FBA39CB0332A0C9EDBFD66 /* Pods_Colombia_ColombiaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Colombia_ColombiaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A2EE96925DBB7D500AFB594 /* AnnictAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnictAPIRequest.swift; sourceTree = "<group>"; };
+		6A2EE96F25DBB9F500AFB594 /* AnnictWorksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnictWorksModel.swift; sourceTree = "<group>"; };
 		6AB4665825D908210035A8FE /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		810790828181EF063F4901FD /* Pods-Colombia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Colombia.release.xcconfig"; path = "Target Support Files/Pods-Colombia/Pods-Colombia.release.xcconfig"; sourceTree = "<group>"; };
 		AE72A2CDE241865CB2D3FFAA /* Pods_ColombiaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColombiaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,14 @@
 				C379A60FD773F83F8ADF9E87 /* Pods-ColombiaTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		6A2EE96E25DBB9CB00AFB594 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A2EE96F25DBB9F500AFB594 /* AnnictWorksModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6AB4665525D8FE930035A8FE /* APIClient */ = {
@@ -193,6 +203,7 @@
 		BF398A0825BDBAB1004FFB70 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6A2EE96E25DBB9CB00AFB594 /* Model */,
 				6AB4665725D8FF3D0035A8FE /* Repository */,
 				6AB4665625D8FECA0035A8FE /* Entities */,
 				6AB4665525D8FE930035A8FE /* APIClient */,
@@ -457,6 +468,7 @@
 				6A2EE96A25DBB7D500AFB594 /* AnnictAPIRequest.swift in Sources */,
 				BF3989D325BDBA65004FFB70 /* AppDelegate.swift in Sources */,
 				BF3989D525BDBA65004FFB70 /* SceneDelegate.swift in Sources */,
+				6A2EE97025DBB9F500AFB594 /* AnnictWorksModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
