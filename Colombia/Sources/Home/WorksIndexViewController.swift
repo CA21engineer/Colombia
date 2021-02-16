@@ -35,7 +35,7 @@ class WorksIndexViewController: UIViewController {
         worksIndexCollectionView.collectionViewLayout = layout
         
         let bgImage = UIImageView()
-        bgImage.image = UIImage(named: "annict.png")
+        bgImage.image = UIImage(named: "annict")
         bgImage.contentMode = .scaleToFill
         worksIndexCollectionView.backgroundView = bgImage
         
@@ -51,6 +51,7 @@ extension WorksIndexViewController : UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 詳細画面に移動
     }
 }
 
@@ -63,9 +64,10 @@ extension WorksIndexViewController : UICollectionViewDataSource {
         let cell = worksIndexCollectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
 
         cell.isFavorite = favoriteStatus[indexPath.section][indexPath.row]
+        
+        // cellを再利用する際にdisposeBagを初期化すること！
         cell.favoriteButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                print(indexPath)
                 cell.isFavorite = cell.isFavorite ? false : true
                 self?.favoriteStatus[indexPath.section][indexPath.row] = cell.isFavorite
             })

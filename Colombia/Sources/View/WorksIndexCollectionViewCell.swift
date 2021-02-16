@@ -14,11 +14,11 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
     var isFavorite : Bool = false {
         didSet {
             if isFavorite {
-                let image = UIImage(named: "red_heart.png")
+                let image = UIImage(named: "red_heart")
                 favoriteButton.setBackgroundImage(image, for: .normal)
             }
             else {
-                let image = UIImage(named: "gray_heart.png")
+                let image = UIImage(named: "gray_heart")
                 favoriteButton.setBackgroundImage(image, for: .normal)
             }
         }
@@ -36,15 +36,8 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
         UINib(nibName: identifier, bundle: nil)
     }
     
-
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
-//    @IBAction func favoriteButtonTapped(_ sender: Any) {
-//        isFavorite = isFavorite ? false : true
-//    }
-    
 }
