@@ -68,13 +68,15 @@ extension WorksIndexViewController : UICollectionViewDataSource {
         // cellを再利用する際にdisposeBagを初期化すること！
         // お気に入り機能
         cell.favoriteButton.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .asDriver()
+            .drive(onNext: { [weak self] in
                 cell.isFavorite = cell.isFavorite ? false : true
                 self?.favoriteStatus[indexPath.section][indexPath.row] = cell.isFavorite
                 
                 //*****Todo***
             })
             .disposed(by: cell.disposeBag)
+
         return cell
     }
 }
