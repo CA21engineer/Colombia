@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AnnictWorksModel {
+struct AnnictWorksModel: Decodable {
     let id: Int
     let title: String
     let title_kana: String
@@ -27,17 +27,17 @@ struct AnnictWorksModel {
     let watchers_count: Int
 }
 
-struct Images {
+struct Images: Decodable {
     let recommended_url: String
     let facebook: [Facebook]
     let twitter: [Twitter]
 }
 
-struct Facebook {
+struct Facebook: Decodable {
     let og_image_url: String
 }
 
-struct Twitter {
+struct Twitter: Decodable {
     let mini_avatar_url: String
     let normal_avatar_url: String
     let bigger_avatar_url: String
