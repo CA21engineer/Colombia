@@ -35,9 +35,4 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
     static var nib: UINib {
         UINib(nibName: identifier, bundle: nil)
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 }

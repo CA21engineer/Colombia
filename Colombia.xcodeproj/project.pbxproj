@@ -26,7 +26,6 @@
 		D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */; };
 		D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D77060CD25D9116E00E08916 /* ルフィ.jpeg */; };
 		D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060D425D9139000E08916 /* UIView+Extension.swift */; };
-		D770613825DB5D9D00E08916 /* document.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D770613425DB5D9D00E08916 /* document.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +77,6 @@
 		D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexCollectionViewCell.xib; sourceTree = "<group>"; };
 		D77060CD25D9116E00E08916 /* ルフィ.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ルフィ.jpeg"; sourceTree = "<group>"; };
 		D77060D425D9139000E08916 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		D770613425DB5D9D00E08916 /* document.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = document.pdf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				BF3989DB25BDBA66004FFB70 /* Assets.xcassets */,
-				D770613425DB5D9D00E08916 /* document.pdf */,
 				BF3989E025BDBA66004FFB70 /* Info.plist */,
 				BF3989DD25BDBA66004FFB70 /* LaunchScreen.storyboard */,
 			);
@@ -369,7 +366,6 @@
 			files = (
 				D77060AF25D90ABA00E08916 /* WorksDetailViewController.xib in Resources */,
 				D77060A425D909D500E08916 /* WorksIndexViewController.xib in Resources */,
-				D770613825DB5D9D00E08916 /* document.pdf in Resources */,
 				D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */,
 				BF3989DF25BDBA66004FFB70 /* LaunchScreen.storyboard in Resources */,
 				D770609D25D9099800E08916 /* WorksIndexTabViewController.xib in Resources */,
