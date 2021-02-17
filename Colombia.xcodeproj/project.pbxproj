@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,8 +16,16 @@
 		BF3989DF25BDBA66004FFB70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3989DD25BDBA66004FFB70 /* LaunchScreen.storyboard */; };
 		BF3989EA25BDBA67004FFB70 /* ColombiaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3989E925BDBA67004FFB70 /* ColombiaTests.swift */; };
 		BF3989F525BDBA67004FFB70 /* ColombiaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3989F425BDBA67004FFB70 /* ColombiaUITests.swift */; };
-		BF398A1625BDBB0D004FFB70 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF398A1425BDBB0D004FFB70 /* ViewController.swift */; };
-		BF398A1725BDBB0D004FFB70 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF398A1525BDBB0D004FFB70 /* ViewController.xib */; };
+		D770609C25D9099800E08916 /* WorksIndexTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770609A25D9099800E08916 /* WorksIndexTabViewController.swift */; };
+		D770609D25D9099800E08916 /* WorksIndexTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D770609B25D9099800E08916 /* WorksIndexTabViewController.xib */; };
+		D77060A325D909D500E08916 /* WorksIndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060A125D909D500E08916 /* WorksIndexViewController.swift */; };
+		D77060A425D909D500E08916 /* WorksIndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060A225D909D500E08916 /* WorksIndexViewController.xib */; };
+		D77060AE25D90ABA00E08916 /* WorksDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060AC25D90ABA00E08916 /* WorksDetailViewController.swift */; };
+		D77060AF25D90ABA00E08916 /* WorksDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */; };
+		D77060C325D90DC700E08916 /* WorksIndexCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */; };
+		D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */; };
+		D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D77060CD25D9116E00E08916 /* ルフィ.jpeg */; };
+		D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060D425D9139000E08916 /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,10 +65,18 @@
 		BF3989F025BDBA67004FFB70 /* ColombiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColombiaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF3989F425BDBA67004FFB70 /* ColombiaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColombiaUITests.swift; sourceTree = "<group>"; };
 		BF3989F625BDBA67004FFB70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF398A1425BDBB0D004FFB70 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BF398A1525BDBB0D004FFB70 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		C379A60FD773F83F8ADF9E87 /* Pods-ColombiaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColombiaTests.release.xcconfig"; path = "Target Support Files/Pods-ColombiaTests/Pods-ColombiaTests.release.xcconfig"; sourceTree = "<group>"; };
 		C6FD0B9FCFC645B29F52410E /* Pods-ColombiaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColombiaTests.debug.xcconfig"; path = "Target Support Files/Pods-ColombiaTests/Pods-ColombiaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D770609A25D9099800E08916 /* WorksIndexTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksIndexTabViewController.swift; sourceTree = "<group>"; };
+		D770609B25D9099800E08916 /* WorksIndexTabViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexTabViewController.xib; sourceTree = "<group>"; };
+		D77060A125D909D500E08916 /* WorksIndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksIndexViewController.swift; sourceTree = "<group>"; };
+		D77060A225D909D500E08916 /* WorksIndexViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexViewController.xib; sourceTree = "<group>"; };
+		D77060AC25D90ABA00E08916 /* WorksDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksDetailViewController.swift; sourceTree = "<group>"; };
+		D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksDetailViewController.xib; sourceTree = "<group>"; };
+		D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksIndexCollectionViewCell.swift; sourceTree = "<group>"; };
+		D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexCollectionViewCell.xib; sourceTree = "<group>"; };
+		D77060CD25D9116E00E08916 /* ルフィ.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ルフィ.jpeg"; sourceTree = "<group>"; };
+		D77060D425D9139000E08916 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +117,6 @@
 				C6FD0B9FCFC645B29F52410E /* Pods-ColombiaTests.debug.xcconfig */,
 				C379A60FD773F83F8ADF9E87 /* Pods-ColombiaTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -167,10 +182,13 @@
 		BF398A0825BDBAB1004FFB70 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D77060CB25D9115900E08916 /* Assets */,
+				D77060B625D90AC400E08916 /* Detail */,
+				D77060A825D909F100E08916 /* Home */,
+				D77060C025D90D9300E08916 /* View */,
+				D77060D325D9137300E08916 /* Extension */,
 				BF3989D225BDBA65004FFB70 /* AppDelegate.swift */,
 				BF3989D425BDBA65004FFB70 /* SceneDelegate.swift */,
-				BF398A1425BDBB0D004FFB70 /* ViewController.swift */,
-				BF398A1525BDBB0D004FFB70 /* ViewController.xib */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -183,6 +201,59 @@
 				BF3989DD25BDBA66004FFB70 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D77060A825D909F100E08916 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D77060A125D909D500E08916 /* WorksIndexViewController.swift */,
+				D77060A225D909D500E08916 /* WorksIndexViewController.xib */,
+				D770609A25D9099800E08916 /* WorksIndexTabViewController.swift */,
+				D770609B25D9099800E08916 /* WorksIndexTabViewController.xib */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D77060B625D90AC400E08916 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				D77060AC25D90ABA00E08916 /* WorksDetailViewController.swift */,
+				D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		D77060C025D90D9300E08916 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */,
+				D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D77060CB25D9115900E08916 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D77060CC25D9116500E08916 /* Image */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		D77060CC25D9116500E08916 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				D77060CD25D9116E00E08916 /* ルフィ.jpeg */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		D77060D325D9137300E08916 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D77060D425D9139000E08916 /* UIView+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,9 +364,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D77060AF25D90ABA00E08916 /* WorksDetailViewController.xib in Resources */,
+				D77060A425D909D500E08916 /* WorksIndexViewController.xib in Resources */,
+				D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */,
 				BF3989DF25BDBA66004FFB70 /* LaunchScreen.storyboard in Resources */,
-				BF398A1725BDBB0D004FFB70 /* ViewController.xib in Resources */,
+				D770609D25D9099800E08916 /* WorksIndexTabViewController.xib in Resources */,
 				BF3989DC25BDBA66004FFB70 /* Assets.xcassets in Resources */,
+				D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,9 +498,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF398A1625BDBB0D004FFB70 /* ViewController.swift in Sources */,
+				D770609C25D9099800E08916 /* WorksIndexTabViewController.swift in Sources */,
+				D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */,
 				BF3989D325BDBA65004FFB70 /* AppDelegate.swift in Sources */,
+				D77060C325D90DC700E08916 /* WorksIndexCollectionViewCell.swift in Sources */,
 				BF3989D525BDBA65004FFB70 /* SceneDelegate.swift in Sources */,
+				D77060AE25D90ABA00E08916 /* WorksDetailViewController.swift in Sources */,
+				D77060A325D909D500E08916 /* WorksIndexViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
