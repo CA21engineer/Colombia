@@ -42,6 +42,13 @@ class WorksIndexViewController: UIViewController {
         favoriteStatus = [[Bool]](repeating: [Bool](repeating: false, count: 3), count: 9)
         
         // Do any additional setup after loading the view.
+        
+        fetchAPI()
+    }
+    
+    private func fetchAPI( ) {
+        // フェッチ処理
+        // repository.fetch() etc...
     }
 }
 
