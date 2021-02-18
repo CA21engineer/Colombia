@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6A2EE96A25DBB7D500AFB594 /* AnnictAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2EE96925DBB7D500AFB594 /* AnnictAPIRequest.swift */; };
 		6A2EE97025DBB9F500AFB594 /* AnnictWorksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2EE96F25DBB9F500AFB594 /* AnnictWorksModel.swift */; };
+		6A2EE97825DBD6DF00AFB594 /* AccessToken.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A2EE97725DBD6DF00AFB594 /* AccessToken.plist */; };
 		6AB4665925D908210035A8FE /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB4665825D908210035A8FE /* Requestable.swift */; };
 		6B118AA0DD1DDBFC3E036F7E /* Pods_ColombiaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE72A2CDE241865CB2D3FFAA /* Pods_ColombiaTests.framework */; };
 		8B3AFD0D8BE4903C16A77080 /* Pods_Colombia_ColombiaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FBA39CB0332A0C9EDBFD66 /* Pods_Colombia_ColombiaUITests.framework */; };
@@ -47,6 +48,7 @@
 		35FBA39CB0332A0C9EDBFD66 /* Pods_Colombia_ColombiaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Colombia_ColombiaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A2EE96925DBB7D500AFB594 /* AnnictAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnictAPIRequest.swift; sourceTree = "<group>"; };
 		6A2EE96F25DBB9F500AFB594 /* AnnictWorksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnictWorksModel.swift; sourceTree = "<group>"; };
+		6A2EE97725DBD6DF00AFB594 /* AccessToken.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AccessToken.plist; sourceTree = "<group>"; };
 		6AB4665825D908210035A8FE /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		810790828181EF063F4901FD /* Pods-Colombia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Colombia.release.xcconfig"; path = "Target Support Files/Pods-Colombia/Pods-Colombia.release.xcconfig"; sourceTree = "<group>"; };
 		AE72A2CDE241865CB2D3FFAA /* Pods_ColombiaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColombiaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +223,7 @@
 				BF3989DB25BDBA66004FFB70 /* Assets.xcassets */,
 				BF3989E025BDBA66004FFB70 /* Info.plist */,
 				BF3989DD25BDBA66004FFB70 /* LaunchScreen.storyboard */,
+				6A2EE97725DBD6DF00AFB594 /* AccessToken.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			files = (
 				BF3989DF25BDBA66004FFB70 /* LaunchScreen.storyboard in Resources */,
 				BF398A1725BDBB0D004FFB70 /* ViewController.xib in Resources */,
+				6A2EE97825DBD6DF00AFB594 /* AccessToken.plist in Resources */,
 				BF3989DC25BDBA66004FFB70 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,7 +642,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DFY27HWN2G;
+				DEVELOPMENT_TEAM = H24YQ27P27;
 				INFOPLIST_FILE = Colombia/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -658,7 +662,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DFY27HWN2G;
+				DEVELOPMENT_TEAM = H24YQ27P27;
 				INFOPLIST_FILE = Colombia/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
