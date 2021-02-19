@@ -8,16 +8,16 @@
 import Foundation
 
 struct AnnictAPIModel: Decodable {
-    let works: [Works]
+    let works: [Work]
 }
 
-struct Works: Decodable {
+struct Work: Decodable {
     let id: Int
     let title: String
-    let images: Images
+    let images: Image
 }
 
-struct Images: Decodable {
+struct Image: Decodable {
     let recommendedUrl: String?
     
     enum Key: String, CodingKey {
