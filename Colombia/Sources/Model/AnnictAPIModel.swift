@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct AnnictWorksModel: Decodable {
+struct AnnictAPIModel: Decodable {
+    let works: [Works]
+}
+
+struct Works: Decodable {
     let id: Int
-    let title: String?
-    let images: [Images]?
+    let title: String
+    let images: Images
 }
 
 struct Images: Decodable {

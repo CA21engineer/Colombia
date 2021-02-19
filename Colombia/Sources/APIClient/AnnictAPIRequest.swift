@@ -34,7 +34,7 @@ enum Endpoint {
 
 struct AnnictAPIRequest:Requestable {
     
-    typealias Response = AnnictWorksModel
+    typealias Response = AnnictAPIModel
     
     private let endpoint: Endpoint
     
@@ -48,7 +48,7 @@ struct AnnictAPIRequest:Requestable {
                 //1ページあたりのデータの数、とりあえず20を指定
                 URLQueryItem(name: "per_page", value: "20"),
                 //とりあえずid,title,recommended_urlのみを受け取る
-                URLQueryItem(name: "fields", value: "id,title,images.recommended_url"),
+                URLQueryItem(name: "fields", value: "id,title,images"),
                 URLQueryItem(name: "access_token", value: AccessToken.annictAPI)
             ]
         }
