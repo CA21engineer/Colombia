@@ -9,14 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-//後々消去
-struct TemporaryWorks {
-    let id: Int
-    let title: String
-    let imageUrl: String
-    let isFavorite: Bool
-}
-
 class WorksIndexViewController: UIViewController {
     
     @IBOutlet weak var worksIndexCollectionView: UICollectionView! {
@@ -28,11 +20,19 @@ class WorksIndexViewController: UIViewController {
     }
     private let disposeBag = DisposeBag()
     
-    //仮設定
-    private var works: [TemporaryWorks] = []
-    
     //状態の変化を保存しておく（仮）
-    private var favoriteStatus : [[ Bool ]] = [[]]
+    private var favoriteStatus : [Bool] = []
+    private let works: [TemporaryWork]
+    
+    init(works: [TemporaryWork]){
+        self.works = works
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,20 +50,9 @@ class WorksIndexViewController: UIViewController {
         bgImage.contentMode = .scaleToFill
         worksIndexCollectionView.backgroundView = bgImage
         
-        favoriteStatus = [[Bool]](repeating: [Bool](repeating: false, count: 3), count: 9)
-        
-        // Do any additional setup after loading the view.
-        
-        fetchAPI()
-    }
-    
-    private func fetchAPI( ) {
-        // フェッチ処理
-        // repository.fetch() etc...
-        
-        for _ in 1...23 {
-            let work = TemporaryWorks(id: 4168, title: "しろばこ", imageUrl: "http://shirobako-anime.com/images/ogp.jpg", isFavorite: false)
-            works.append(work)
+        favoriteStatus = [Bool](repeating: false, count: works.count)
+        for (index, work) in works.enumerated() {
+            favoriteStatus[index] = work.isFavorite
         }
     }
 }
@@ -86,13 +75,15 @@ extension WorksIndexViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = worksIndexCollectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
 
-        cell.isFavorite = favoriteStatus[indexPath.section][indexPath.row]
         
         let index = indexPath.section * 3 + indexPath.row
-        
         if index < works.count {
-            print(index)
             cell.configure(work: works[index])
+            cell.isFavorite = favoriteStatus[index]
+        }
+        else {
+            cell.isHidden = true
+            return cell
         }
         
         // cellを再利用する際にdisposeBagを初期化すること！
@@ -101,7 +92,8 @@ extension WorksIndexViewController : UICollectionViewDataSource {
             .asDriver()
             .drive(onNext: { [weak self] in
                 cell.isFavorite = cell.isFavorite ? false : true
-                self?.favoriteStatus[indexPath.section][indexPath.row] = cell.isFavorite
+                let index = indexPath.section * 3 + indexPath.row
+                self?.favoriteStatus[index] = cell.isFavorite
                 
                 //*****Todo***
             })

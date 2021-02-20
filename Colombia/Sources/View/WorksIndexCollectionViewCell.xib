@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="159" height="189"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ルフィ.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="D1T-Yy-J1n">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="D1T-Yy-J1n">
                         <rect key="frame" x="5" y="5" width="149" height="149"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="D1T-Yy-J1n" secondAttribute="height" multiplier="1:1" id="H1E-ge-6bS"/>
@@ -82,6 +82,5 @@
     </objects>
     <resources>
         <image name="gray_heart.png" width="256" height="256"/>
-        <image name="ルフィ.jpeg" width="225" height="225"/>
     </resources>
 </document>

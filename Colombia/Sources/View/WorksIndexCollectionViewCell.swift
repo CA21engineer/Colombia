@@ -30,10 +30,11 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
     
     
     override func prepareForReuse() {
+        isHidden = false
         disposeBag = DisposeBag()
     }
     
-    func configure(work: TemporaryWorks) {
+    func configure(work: TemporaryWork) {
         titleLabel.text = work.title
         if let imageUrl = URL(string: work.imageUrl) {
             self.iconImageView.setImage(with: imageUrl)

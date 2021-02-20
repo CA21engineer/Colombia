@@ -24,7 +24,6 @@
 		D77060AF25D90ABA00E08916 /* WorksDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */; };
 		D77060C325D90DC700E08916 /* WorksIndexCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */; };
 		D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */; };
-		D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D77060CD25D9116E00E08916 /* ルフィ.jpeg */; };
 		D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060D425D9139000E08916 /* UIView+Extension.swift */; };
 		D770616B25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770616A25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift */; };
 		D770617125DCC9F700E08916 /* ImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770617025DCC9F700E08916 /* ImageView+setImage.swift */; };
@@ -77,7 +76,6 @@
 		D77060AD25D90ABA00E08916 /* WorksDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksDetailViewController.xib; sourceTree = "<group>"; };
 		D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksIndexCollectionViewCell.swift; sourceTree = "<group>"; };
 		D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexCollectionViewCell.xib; sourceTree = "<group>"; };
-		D77060CD25D9116E00E08916 /* ルフィ.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ルフィ.jpeg"; sourceTree = "<group>"; };
 		D77060D425D9139000E08916 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D770616A25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Nib + Identifer.swift"; sourceTree = "<group>"; };
 		D770617025DCC9F700E08916 /* ImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+setImage.swift"; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 		D77060CC25D9116500E08916 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				D77060CD25D9116E00E08916 /* ルフィ.jpeg */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -376,7 +373,6 @@
 				BF3989DF25BDBA66004FFB70 /* LaunchScreen.storyboard in Resources */,
 				D770609D25D9099800E08916 /* WorksIndexTabViewController.xib in Resources */,
 				BF3989DC25BDBA66004FFB70 /* Assets.xcassets in Resources */,
-				D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,7 +679,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DFY27HWN2G;
-				INFOPLIST_FILE = Colombia/Info.plist;
+				INFOPLIST_FILE = Colombia/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -703,7 +699,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DFY27HWN2G;
-				INFOPLIST_FILE = Colombia/Info.plist;
+				INFOPLIST_FILE = Colombia/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
