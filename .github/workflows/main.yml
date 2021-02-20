@@ -36,7 +36,5 @@ jobs:
       env:  
         ACCESS_TOKEN_PLIST_BASE64: ${{ secrets.APIKEY_PLIST_BASE64 }}
       run: echo $ACCESS_TOKEN_PLIST_BASE64 | base64 --decode > Colombia/Resources/AccessToken.plist
-    - name: Generate Test
-      run: cat Colombia/Resources/AccessToken.plist
     - name: Build App
       run: xcodebuild -sdk iphonesimulator -scheme Colombia -workspace Colombia.xcworkspace
