@@ -7,9 +7,13 @@
 
 import UIKit
 import RxSwift
+import Nuke
 
 class WorksIndexCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
+    
     var disposeBag = DisposeBag()
     var isFavorite : Bool = false {
         didSet {
@@ -24,15 +28,15 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    
     override func prepareForReuse() {
         disposeBag = DisposeBag()
     }
     
-    static var identifier: String {
-        String(describing: self)
-    }
-    
-    static var nib: UINib {
-        UINib(nibName: identifier, bundle: nil)
+    func configure(work: TemporaryWorks) {
+        titleLabel.text = work.title
+        if let imageUrl = URL(string: work.imageUrl) {
+            self.iconImageView.setImage(with: imageUrl)
+        }
     }
 }

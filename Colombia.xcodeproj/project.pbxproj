@@ -26,6 +26,8 @@
 		D77060C425D90DC700E08916 /* WorksIndexCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */; };
 		D77060CE25D9116E00E08916 /* ルフィ.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D77060CD25D9116E00E08916 /* ルフィ.jpeg */; };
 		D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77060D425D9139000E08916 /* UIView+Extension.swift */; };
+		D770616B25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770616A25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift */; };
+		D770617125DCC9F700E08916 /* ImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770617025DCC9F700E08916 /* ImageView+setImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorksIndexCollectionViewCell.xib; sourceTree = "<group>"; };
 		D77060CD25D9116E00E08916 /* ルフィ.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ルフィ.jpeg"; sourceTree = "<group>"; };
 		D77060D425D9139000E08916 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		D770616A25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Nib + Identifer.swift"; sourceTree = "<group>"; };
+		D770617025DCC9F700E08916 /* ImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+setImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				D77060D425D9139000E08916 /* UIView+Extension.swift */,
+				D770616A25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift */,
+				D770617025DCC9F700E08916 /* ImageView+setImage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -502,7 +508,9 @@
 				D77060D525D9139000E08916 /* UIView+Extension.swift in Sources */,
 				BF3989D325BDBA65004FFB70 /* AppDelegate.swift in Sources */,
 				D77060C325D90DC700E08916 /* WorksIndexCollectionViewCell.swift in Sources */,
+				D770617125DCC9F700E08916 /* ImageView+setImage.swift in Sources */,
 				BF3989D525BDBA65004FFB70 /* SceneDelegate.swift in Sources */,
+				D770616B25DCC4CE00E08916 /* UICollectionViewCell + Nib + Identifer.swift in Sources */,
 				D77060AE25D90ABA00E08916 /* WorksDetailViewController.swift in Sources */,
 				D77060A325D909D500E08916 /* WorksIndexViewController.swift in Sources */,
 			);

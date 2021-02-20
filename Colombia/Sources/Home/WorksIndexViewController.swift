@@ -9,6 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+//後々消去
+struct TemporaryWorks {
+    let id: Int
+    let title: String
+    let imageUrl: String
+    let isFavorite: Bool
+}
+
 class WorksIndexViewController: UIViewController {
     
     @IBOutlet weak var worksIndexCollectionView: UICollectionView! {
@@ -19,6 +27,9 @@ class WorksIndexViewController: UIViewController {
         }
     }
     private let disposeBag = DisposeBag()
+    
+    //仮設定
+    private var works: [TemporaryWorks] = []
     
     //状態の変化を保存しておく（仮）
     private var favoriteStatus : [[ Bool ]] = [[]]
@@ -49,12 +60,17 @@ class WorksIndexViewController: UIViewController {
     private func fetchAPI( ) {
         // フェッチ処理
         // repository.fetch() etc...
+        
+        for _ in 1...23 {
+            let work = TemporaryWorks(id: 4168, title: "しろばこ", imageUrl: "http://shirobako-anime.com/images/ogp.jpg", isFavorite: false)
+            works.append(work)
+        }
     }
 }
 
 extension WorksIndexViewController : UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 9
+        return Int(ceil(Double(works.count) / 3))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -71,6 +87,13 @@ extension WorksIndexViewController : UICollectionViewDataSource {
         let cell = worksIndexCollectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
 
         cell.isFavorite = favoriteStatus[indexPath.section][indexPath.row]
+        
+        let index = indexPath.section * 3 + indexPath.row
+        
+        if index < works.count {
+            print(index)
+            cell.configure(work: works[index])
+        }
         
         // cellを再利用する際にdisposeBagを初期化すること！
         // お気に入り機能
