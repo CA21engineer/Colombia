@@ -61,11 +61,11 @@ class WorksIndexTabViewController: UITabBarController {
         
         //お気に入り画面でお気に入りの状態に変更があった時
         favoriteWorksIndexVC.favoriteValueChanged
-            .subscribe(onNext: { [weak self] work in
+            .subscribe(onNext: { [ weak self ] work in
                 guard let self = self else { return }
                 
-                //おきに入り画面でお気に入り解除 → お気に入り画面からそのアイコンを削除 & 一覧画面でのそのアイコンのお気に入り状態の解除
-                if(work.isFavorite == false) {
+                //おきに入り画面でお気に入り解除 → お気に入り画面からそのアイコンを削除, 一覧画面でのそのアイコンのお気に入り状態の解除
+                if( work.isFavorite == false ) {
                     let index = self.works.firstIndex { $0.id == work.id }
                     if let index = index {
                         worksIndexVC.works[index].isFavorite = false
@@ -86,7 +86,7 @@ class WorksIndexTabViewController: UITabBarController {
         // repository.fetch() etc...
         
         //サンプルデータ
-        for num in 1...22 {
+        for num in 1...40 {
             if num % 2 == 0 {
                 let work = TemporaryWork(id: 4168 + num, title: "しろばこ\(num)", imageUrl: "http://shirobako-anime.com/images/ogp.jpg", isFavorite: false)
                 works.append(work)

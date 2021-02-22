@@ -21,13 +21,15 @@ class WorksIndexViewController: UIViewController {
     
     
     private let disposeBag = DisposeBag()
-    
     var works: [TemporaryWork] = []
     let favoriteValueChanged = PublishRelay<TemporaryWork>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setComponent()
+    }
+    
+    private func setComponent(){
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:20, left:30, bottom:5, right: 30)
         layout.minimumInteritemSpacing = 5
@@ -40,7 +42,6 @@ class WorksIndexViewController: UIViewController {
         bgImage.image = UIImage(named: "annict")
         bgImage.contentMode = .scaleToFill
         worksIndexCollectionView.backgroundView = bgImage
-        
     }
 }
 
@@ -80,12 +81,11 @@ extension WorksIndexViewController : UICollectionViewDataSource {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                
                 cell.isFavorite = cell.isFavorite ? false : true
                 let index = indexPath.section * 3 + indexPath.row
+                
                 self.works[index].isFavorite = cell.isFavorite
                 self.favoriteValueChanged.accept(self.works[index])
-                
                 //*****Todo***
             })
             .disposed(by: cell.disposeBag)
