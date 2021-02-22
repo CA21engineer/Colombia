@@ -18,7 +18,6 @@ struct TemporaryWork {
 }
 
 class WorksIndexTabViewController: UITabBarController {
-    
     //仮設定
     private var works: [TemporaryWork] = []
     private var favoriteWorks: [TemporaryWork] = []
