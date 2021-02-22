@@ -184,9 +184,6 @@
 		BF398A0825BDBAB1004FFB70 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D77060CB25D9115900E08916 /* Assets */,
-				D77060B625D90AC400E08916 /* Detail */,
-				D77060A825D909F100E08916 /* Home */,
 				D77060C025D90D9300E08916 /* View */,
 				D77060D325D9137300E08916 /* Extension */,
 				BF3989D225BDBA65004FFB70 /* AppDelegate.swift */,
@@ -228,25 +225,12 @@
 		D77060C025D90D9300E08916 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D77060A825D909F100E08916 /* Home */,
+				D77060B625D90AC400E08916 /* Detail */,
 				D77060C125D90DC700E08916 /* WorksIndexCollectionViewCell.swift */,
 				D77060C225D90DC700E08916 /* WorksIndexCollectionViewCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		D77060CB25D9115900E08916 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				D77060CC25D9116500E08916 /* Image */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		D77060CC25D9116500E08916 /* Image */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Image;
 			sourceTree = "<group>";
 		};
 		D77060D325D9137300E08916 /* Extension */ = {

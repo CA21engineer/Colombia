@@ -28,7 +28,6 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
     override func prepareForReuse() {
         isHidden = false
         disposeBag = DisposeBag()

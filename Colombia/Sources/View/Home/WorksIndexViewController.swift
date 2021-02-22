@@ -18,21 +18,12 @@ class WorksIndexViewController: UIViewController {
             worksIndexCollectionView.register(WorksIndexCollectionViewCell.nib, forCellWithReuseIdentifier: WorksIndexCollectionViewCell.identifier)
         }
     }
+    
+    
     private let disposeBag = DisposeBag()
     
-    //状態の変化を保存しておく（仮）
-    private var favoriteStatus : [Bool] = []
-    private let works: [TemporaryWork]
-    
-    init(works: [TemporaryWork]){
-        self.works = works
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    var works: [TemporaryWork] = []
+    let favoriteValueChanged = PublishRelay<TemporaryWork>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +41,6 @@ class WorksIndexViewController: UIViewController {
         bgImage.contentMode = .scaleToFill
         worksIndexCollectionView.backgroundView = bgImage
         
-        favoriteStatus = [Bool](repeating: false, count: works.count)
-        for (index, work) in works.enumerated() {
-            favoriteStatus[index] = work.isFavorite
-        }
     }
 }
 
@@ -78,8 +65,9 @@ extension WorksIndexViewController : UICollectionViewDataSource {
         
         let index = indexPath.section * 3 + indexPath.row
         if index < works.count {
-            cell.configure(work: works[index])
-            cell.isFavorite = favoriteStatus[index]
+            let work = works[index]
+            cell.configure(work: work)
+            cell.isFavorite = work.isFavorite
         }
         else {
             cell.isHidden = true
@@ -91,9 +79,12 @@ extension WorksIndexViewController : UICollectionViewDataSource {
         cell.favoriteButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                
                 cell.isFavorite = cell.isFavorite ? false : true
                 let index = indexPath.section * 3 + indexPath.row
-                self?.favoriteStatus[index] = cell.isFavorite
+                self.works[index].isFavorite = cell.isFavorite
+                self.favoriteValueChanged.accept(self.works[index])
                 
                 //*****Todo***
             })
