@@ -14,3 +14,10 @@ targets:
     sources: ColombiaTests
     dependencies:
       - target: Colombia
+  ColombiaUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "13.0"
+    sources: ColombiaUITests
+    dependencies:
+      - target: Colombia
