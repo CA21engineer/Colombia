@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: actions/xcodegen-action@1.0.0
       with:
-	spec: project.yml
-	quiet: true
-	version: '2.15.1'
+        spec: project.yml
+        quiet: true
+        version: '2.15.1'
     - uses: actions/checkout@v2
     - uses: actions/cache@v2
       with:
