@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: macOS-latest
     steps:
-    - uses: actions/xcodegen-action@1.0.0
+    - uses: xavierLowmiller/xcodegen-action@1.0.0
       with:
         spec: project.yml
         quiet: true
