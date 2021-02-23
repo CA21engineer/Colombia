@@ -19,10 +19,22 @@ struct TemporaryWork {
 
 class WorksIndexTabViewController: UITabBarController {
     //仮設定
-    private var works: [TemporaryWork] = []
-    private var favoriteWorks: [TemporaryWork] = []
+//    private var works: [TemporaryWork] = []
+//    private var favoriteWorks: [TemporaryWork] = []
+    private var works: [Work] = []
+    private var favoriteWorks: [Work] = []
     private let disposeBag = DisposeBag()
-
+    private let repository : AnnictDataRepository
+    
+    init(repository: AnnictDataRepository){
+        self.repository = repository
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,11 +99,11 @@ class WorksIndexTabViewController: UITabBarController {
         //サンプルデータ
         for num in 1...40 {
             if num % 2 == 0 {
-                let work = TemporaryWork(id: 4168 + num, title: "しろばこ\(num)", imageUrl: "http://shirobako-anime.com/images/ogp.jpg", isFavorite: false)
+                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: false)
                 works.append(work)
             }
             else {
-                let work = TemporaryWork(id: 4168 + num, title: "しろばこ\(num)", imageUrl: "http://shirobako-anime.com/images/ogp.jpg", isFavorite: true)
+                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: true)
                 works.append(work)
             }
         }

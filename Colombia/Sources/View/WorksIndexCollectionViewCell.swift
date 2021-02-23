@@ -33,9 +33,11 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
         disposeBag = DisposeBag()
     }
     
-    func configure(work: TemporaryWork) {
+    func configure(work: Work) {
         titleLabel.text = work.title
-        if let imageUrl = URL(string: work.imageUrl) {
+        
+        guard let imageUrl = work.image.recommendedUrl else { return }
+        if let imageUrl = URL(string: imageUrl) {
             self.iconImageView.setImage(with: imageUrl)
         }
     }

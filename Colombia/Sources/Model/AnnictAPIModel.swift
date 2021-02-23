@@ -15,6 +15,7 @@ struct Work: Decodable {
     let id: Int
     let title: String
     let image: Image
+    var isFavorite: Bool
     
     enum Key: String, CodingKey {
         case id
@@ -27,6 +28,14 @@ struct Work: Decodable {
         self.id = try container.decode(Int.self, forKey: .id)
         self.title = try container.decode(String.self, forKey: .title)
         self.image = try container.decode(Image.self, forKey: .image)
+        self.isFavorite = false
+    }
+    
+    init(id: Int, title:String, image: Image, isFavorite: Bool){
+        self.id = id
+        self.title = title
+        self.image = image
+        self.isFavorite = isFavorite
     }
 }
 
@@ -40,5 +49,9 @@ struct Image: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         self.recommendedUrl = try container.decode(String.self, forKey: .recommendedUrl)
+    }
+    
+    init( recommendedUrl : String?){
+        self.recommendedUrl = recommendedUrl
     }
 }

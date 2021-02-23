@@ -21,8 +21,8 @@ class WorksIndexViewController: UIViewController {
     
     
     private let disposeBag = DisposeBag()
-    var works: [TemporaryWork] = []
-    let favoriteValueChanged = PublishRelay<TemporaryWork>()
+    var works: [Work] = []
+    let favoriteValueChanged = PublishRelay<Work>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
