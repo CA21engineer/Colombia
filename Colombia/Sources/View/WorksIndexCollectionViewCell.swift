@@ -31,12 +31,17 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         isHidden = false
         disposeBag = DisposeBag()
+        
     }
     
     func configure(work: Work) {
         titleLabel.text = work.title
         
-        guard let imageUrl = work.image.recommendedUrl else { return }
+        guard let imageUrl = work.image.recommendedUrl, imageUrl != "" else {
+            let image = UIImage(named: "no_image")
+            self.iconImageView.image = image
+            return
+        }
         if let imageUrl = URL(string: imageUrl) {
             self.iconImageView.setImage(with: imageUrl)
         }

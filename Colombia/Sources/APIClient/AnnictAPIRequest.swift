@@ -49,7 +49,8 @@ struct AnnictAPIRequest:Requestable {
                 URLQueryItem(name: "per_page", value: "20"),
                 //とりあえずid,title,recommended_urlのみを受け取る
                 URLQueryItem(name: "fields", value: "id,title,images"),
-                URLQueryItem(name: "access_token", value: AccessToken.annictAPI)
+                URLQueryItem(name: "access_token", value: AccessToken.annictAPI),
+                URLQueryItem(name: "filter_season", value: "2020-spring")
             ]
         }
         return baseURL.url!

@@ -19,8 +19,6 @@ struct TemporaryWork {
 
 class WorksIndexTabViewController: UITabBarController {
     //仮設定
-//    private var works: [TemporaryWork] = []
-//    private var favoriteWorks: [TemporaryWork] = []
     private var works: [Work] = []
     private var favoriteWorks: [Work] = []
     private let disposeBag = DisposeBag()
@@ -42,7 +40,6 @@ class WorksIndexTabViewController: UITabBarController {
         // 一覧用レポジトリとお気に入り用レポジトリを作成
         // WorksIndexViewControllerの引数にレポジトリを入れてあげる
         
-        fetchAPI()
         let worksIndexVC = WorksIndexViewController()
         worksIndexVC.tabBarItem.title = "一覧"
         worksIndexVC.tabBarItem.tag = 1
@@ -55,6 +52,30 @@ class WorksIndexTabViewController: UITabBarController {
         favoriteWorksIndexVC.tabBarItem.image = UIImage(named: "favorite")
         favoriteWorksIndexVC.works = favoriteWorks
         
+        repository.fetch()
+            .subscribe(on: SerialDispatchQueueScheduler(qos: .background))
+            .observe(on: MainScheduler.instance)
+            .subscribe(
+                onNext: { model in
+                    self.works = model.works
+                    for work in self.works {
+                       if work.isFavorite {
+                        self.favoriteWorks.append(work)
+                       }
+                    }
+                    
+                    print(self.works)
+                    worksIndexVC.works = self.works
+                    favoriteWorksIndexVC.works = self.favoriteWorks
+                    worksIndexVC.worksIndexCollectionView?.reloadData()
+                    favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
+                },
+                onError: { error in
+//                    print(error)
+                }
+            )
+            .disposed(by: disposeBag)
+
         //一覧画面でお気に入りの状態に変更があった時
         worksIndexVC.favoriteValueChanged
             .subscribe(onNext: { work in
@@ -80,10 +101,10 @@ class WorksIndexTabViewController: UITabBarController {
                     let index = self.works.firstIndex { $0.id == work.id }
                     if let index = index {
                         worksIndexVC.works[index].isFavorite = false
-                        worksIndexVC.worksIndexCollectionView.reloadData()
+                        worksIndexVC.worksIndexCollectionView?.reloadData()
                     }
                     favoriteWorksIndexVC.works.removeAll { $0.id == work.id }
-                    favoriteWorksIndexVC.worksIndexCollectionView.reloadData()
+                    favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
                 }
             })
             .disposed(by: disposeBag)
@@ -96,22 +117,42 @@ class WorksIndexTabViewController: UITabBarController {
         // フェッチ処理
         // repository.fetch() etc...
         
-        //サンプルデータ
-        for num in 1...40 {
-            if num % 2 == 0 {
-                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: false)
-                works.append(work)
-            }
-            else {
-                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: true)
-                works.append(work)
-            }
-        }
+//        repository.fetch()
+//            .subscribe(on: SerialDispatchQueueScheduler(qos: .background))
+//            .observe(on: MainScheduler.instance)
+//            .subscribe(
+//                onNext: { model in
+//                    self.works = model.works
+//                    for work in self.works {
+//                       if work.isFavorite {
+//                        self.favoriteWorks.append(work)
+//                       }
+//                    }
+//                    self.worksIndexVC.works = self.works
+//                    self.favoriteWorksIndexVC.works = self.favoriteWorks
+//                },
+//                onError: { error in
+//                    print(error)
+//                }
+//            )
+//            .disposed(by: disposeBag)
         
-        for work in works {
-            if work.isFavorite {
-                favoriteWorks.append(work)
-            }
-        }
+//        //サンプルデータ
+//        for num in 1...40 {
+//            if num % 2 == 0 {
+//                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: false)
+//                works.append(work)
+//            }
+//            else {
+//                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: true)
+//                works.append(work)
+//            }
+//        }
+//
+//        for work in works {
+//            if work.isFavorite {
+//                favoriteWorks.append(work)
+//            }
+//        }
     }
 }
