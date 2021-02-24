@@ -24,7 +24,7 @@ struct APIClient {
                     let decodeData = try decoder.decode(T.Response.self, from: resultData)
                     observer.onNext(decodeData)
                 } catch let error {
-                    print(error)
+                    observer.onError(error)
                 }
             }
             task.resume()
