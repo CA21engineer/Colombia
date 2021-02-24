@@ -45,13 +45,9 @@ struct Image: Decodable {
     enum Key: String, CodingKey {
         case recommendedUrl = "recommended_url"
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         self.recommendedUrl = try container.decode(String.self, forKey: .recommendedUrl)
-    }
-    
-    init( recommendedUrl : String?){
-        self.recommendedUrl = recommendedUrl
     }
 }

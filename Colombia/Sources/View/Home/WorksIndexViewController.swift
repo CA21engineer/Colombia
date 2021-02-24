@@ -16,11 +16,14 @@ class WorksIndexViewController: UIViewController {
             worksIndexCollectionView.delegate = self
             worksIndexCollectionView.dataSource = self
             worksIndexCollectionView.register(WorksIndexCollectionViewCell.nib, forCellWithReuseIdentifier: WorksIndexCollectionViewCell.identifier)
+            let refreshControl = UIRefreshControl()
+            refreshControl.tintColor = .white
+            worksIndexCollectionView.refreshControl = refreshControl
         }
     }
     
-    
     private let disposeBag = DisposeBag()
+    let activityIndicator = UIActivityIndicatorView()
     var works: [Work] = []
     let favoriteValueChanged = PublishRelay<Work>()
     
@@ -29,7 +32,7 @@ class WorksIndexViewController: UIViewController {
         setComponent()
     }
     
-    private func setComponent(){
+    private func setComponent() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:20, left:30, bottom:5, right: 30)
         layout.minimumInteritemSpacing = 5
@@ -42,6 +45,14 @@ class WorksIndexViewController: UIViewController {
         bgImage.image = UIImage(named: "annict")
         bgImage.contentMode = .scaleToFill
         worksIndexCollectionView.backgroundView = bgImage
+        
+        DispatchQueue.main.async {
+            // メインスレッドの中にいれないと真ん中にならない
+            self.activityIndicator.center = self.view.center
+            self.activityIndicator.color = .white
+            self.activityIndicator.style = .large
+            self.view.addSubview(self.activityIndicator)
+        }
     }
 }
 
@@ -67,11 +78,16 @@ extension WorksIndexViewController : UICollectionViewDataSource {
         let index = indexPath.section * 3 + indexPath.row
         if index < works.count {
             let work = works[index]
-            cell.configure(work: work)
-            cell.isFavorite = work.isFavorite
+            
+            DispatchQueue.main.async {
+                cell.configure(work: work)
+                cell.isFavorite = work.isFavorite
+            }
         }
         else {
-            cell.isHidden = true
+            DispatchQueue.main.async {
+                cell.isHidden = true
+            }
             return cell
         }
         

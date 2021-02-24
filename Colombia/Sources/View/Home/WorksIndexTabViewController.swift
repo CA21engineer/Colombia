@@ -24,6 +24,9 @@ class WorksIndexTabViewController: UITabBarController {
     private let disposeBag = DisposeBag()
     private let repository : AnnictDataRepository
     
+    private let worksIndexVC = WorksIndexViewController()
+    private let favoriteWorksIndexVC = WorksIndexViewController()
+    
     init(repository: AnnictDataRepository){
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
@@ -40,54 +43,34 @@ class WorksIndexTabViewController: UITabBarController {
         // 一覧用レポジトリとお気に入り用レポジトリを作成
         // WorksIndexViewControllerの引数にレポジトリを入れてあげる
         
-        let worksIndexVC = WorksIndexViewController()
         worksIndexVC.tabBarItem.title = "一覧"
         worksIndexVC.tabBarItem.tag = 1
         worksIndexVC.tabBarItem.image = UIImage(named: "document")
         worksIndexVC.works = works
         
-        let favoriteWorksIndexVC = WorksIndexViewController()
         favoriteWorksIndexVC.tabBarItem.title = "お気に入り"
         favoriteWorksIndexVC.tabBarItem.tag = 2
         favoriteWorksIndexVC.tabBarItem.image = UIImage(named: "favorite")
         favoriteWorksIndexVC.works = favoriteWorks
         
-        repository.fetch()
-            .subscribe(on: SerialDispatchQueueScheduler(qos: .background))
-            .observe(on: MainScheduler.instance)
-            .subscribe(
-                onNext: { model in
-                    self.works = model.works
-                    for work in self.works {
-                       if work.isFavorite {
-                        self.favoriteWorks.append(work)
-                       }
-                    }
-                    
-                    print(self.works)
-                    worksIndexVC.works = self.works
-                    favoriteWorksIndexVC.works = self.favoriteWorks
-                    worksIndexVC.worksIndexCollectionView?.reloadData()
-                    favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
-                },
-                onError: { error in
-//                    print(error)
-                }
-            )
-            .disposed(by: disposeBag)
+        let vcList: [ UIViewController ] = [ worksIndexVC, favoriteWorksIndexVC ]
+        setViewControllers(vcList, animated: true)
 
+        worksIndexVC.activityIndicator.startAnimating()
+        favoriteWorksIndexVC.activityIndicator.startAnimating()
+        fetchAPI()
         //一覧画面でお気に入りの状態に変更があった時
         worksIndexVC.favoriteValueChanged
             .subscribe(onNext: { work in
                 
                 //お気に入り画面にお気に入りしたアイコンの追加 / 解除したアイコンの削除
                 if(work.isFavorite) {
-                    favoriteWorksIndexVC.works.append(work)
+                    self.favoriteWorksIndexVC.works.append(work)
                 }
                 else {
-                    favoriteWorksIndexVC.works.removeAll { $0.id == work.id }
+                    self.favoriteWorksIndexVC.works.removeAll { $0.id == work.id }
                 }
-                favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
+                self.favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -100,59 +83,65 @@ class WorksIndexTabViewController: UITabBarController {
                 if( work.isFavorite == false ) {
                     let index = self.works.firstIndex { $0.id == work.id }
                     if let index = index {
-                        worksIndexVC.works[index].isFavorite = false
-                        worksIndexVC.worksIndexCollectionView?.reloadData()
+                        self.worksIndexVC.works[index].isFavorite = false
+                        self.worksIndexVC.worksIndexCollectionView?.reloadData()
                     }
-                    favoriteWorksIndexVC.works.removeAll { $0.id == work.id }
-                    favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
+                    self.favoriteWorksIndexVC.works.removeAll { $0.id == work.id }
+                    self.favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
                 }
             })
             .disposed(by: disposeBag)
         
-        let vcList: [ UIViewController ] = [ worksIndexVC, favoriteWorksIndexVC ]
-        setViewControllers(vcList, animated: true)
+        worksIndexVC.worksIndexCollectionView?
+            .refreshControl?
+            .rx
+            .controlEvent(.valueChanged)
+            .subscribe(
+                onNext: { [weak self] in
+                    self?.fetchAPI()
+                })
+            .disposed(by: disposeBag)
+    }
+    
+    private func showRetryAlert(with error: Error, retryhandler: @escaping () -> ()) {
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Retry", style: .default) { _ in
+            retryhandler()
+        })
+        present(alertController, animated: true, completion: nil)
     }
     
     private func fetchAPI() {
-        // フェッチ処理
-        // repository.fetch() etc...
-        
-//        repository.fetch()
-//            .subscribe(on: SerialDispatchQueueScheduler(qos: .background))
-//            .observe(on: MainScheduler.instance)
-//            .subscribe(
-//                onNext: { model in
-//                    self.works = model.works
-//                    for work in self.works {
-//                       if work.isFavorite {
-//                        self.favoriteWorks.append(work)
-//                       }
-//                    }
-//                    self.worksIndexVC.works = self.works
-//                    self.favoriteWorksIndexVC.works = self.favoriteWorks
-//                },
-//                onError: { error in
-//                    print(error)
-//                }
-//            )
-//            .disposed(by: disposeBag)
-        
-//        //サンプルデータ
-//        for num in 1...40 {
-//            if num % 2 == 0 {
-//                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: false)
-//                works.append(work)
-//            }
-//            else {
-//                let work = Work(id: 4168 + num, title: "しろばこ\(num)", image: Image(recommendedUrl: "http://shirobako-anime.com/images/ogp.jpg"), isFavorite: true)
-//                works.append(work)
-//            }
-//        }
-//
-//        for work in works {
-//            if work.isFavorite {
-//                favoriteWorks.append(work)
-//            }
-//        }
+        repository.fetch()
+            .subscribe(on: SerialDispatchQueueScheduler(qos: .background))
+            .observe(on: MainScheduler.instance)
+            .subscribe(
+                onNext: { model in
+                    self.works = model.works
+                    for work in self.works {
+                       if work.isFavorite {
+                        self.favoriteWorks.append(work)
+                       }
+                    }
+                    self.worksIndexVC.works = self.works
+                    self.favoriteWorksIndexVC.works = self.favoriteWorks
+                    self.worksIndexVC.worksIndexCollectionView?.reloadData()
+                    self.favoriteWorksIndexVC.worksIndexCollectionView?.reloadData()
+                    self.afterFetch()
+                    
+                },
+                onError: { error in
+                    self.showRetryAlert(with: error, retryhandler: { self.fetchAPI() })
+                    self.afterFetch()
+                }
+            )
+            .disposed(by: disposeBag)
+    }
+    
+    private func afterFetch() {
+        self.worksIndexVC.activityIndicator.stopAnimating()
+        self.favoriteWorksIndexVC.activityIndicator.stopAnimating()
+        worksIndexVC.worksIndexCollectionView.refreshControl?.endRefreshing()
     }
 }
