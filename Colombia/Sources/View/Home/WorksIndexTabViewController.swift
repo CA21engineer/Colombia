@@ -18,14 +18,13 @@ struct TemporaryWork {
 }
 
 class WorksIndexTabViewController: UITabBarController {
-    //仮設定
+
     private var works: [Work] = []
     private var favoriteWorks: [Work] = []
-    private let disposeBag = DisposeBag()
     private let repository : AnnictDataRepository
-    
     private let worksIndexVC = WorksIndexViewController()
     private let favoriteWorksIndexVC = WorksIndexViewController()
+    private let disposeBag = DisposeBag()
     
     init(repository: AnnictDataRepository){
         self.repository = repository
@@ -39,10 +38,6 @@ class WorksIndexTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // ここでAPIリクエストを取得し
-        // 一覧用レポジトリとお気に入り用レポジトリを作成
-        // WorksIndexViewControllerの引数にレポジトリを入れてあげる
-        
         worksIndexVC.tabBarItem.title = "一覧"
         worksIndexVC.tabBarItem.tag = 1
         worksIndexVC.tabBarItem.image = UIImage(named: "document")
@@ -53,12 +48,16 @@ class WorksIndexTabViewController: UITabBarController {
         favoriteWorksIndexVC.tabBarItem.image = UIImage(named: "favorite")
         favoriteWorksIndexVC.works = favoriteWorks
         
+        //これでは消えないのでどうにかしたい
+        favoriteWorksIndexVC.worksIndexCollectionView?.refreshControl = nil
+        
         let vcList: [ UIViewController ] = [ worksIndexVC, favoriteWorksIndexVC ]
         setViewControllers(vcList, animated: true)
 
         worksIndexVC.activityIndicator.startAnimating()
         favoriteWorksIndexVC.activityIndicator.startAnimating()
         fetchAPI()
+        
         //一覧画面でお気に入りの状態に変更があった時
         worksIndexVC.favoriteValueChanged
             .subscribe(onNext: { work in
