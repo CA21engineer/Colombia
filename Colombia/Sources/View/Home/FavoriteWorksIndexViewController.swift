@@ -4,54 +4,10 @@
 //
 //  Created by 化田晃平 on R 3/02/25.
 //
-
 import UIKit
 import RxSwift
-import RxCocoa
 
 class FavoriteWorksIndexViewController: UIViewController {
-    // DIを利用
-    init(){
-        self.worksIndexModel = .shared
-        super.init(nibName: nil, bundle: nil)
-        
-        //お気に入りの状態に変更があった時
-        self.worksIndexModel.favoriteValueChanged
-            .subscribe(onNext: { [weak self] notification in
-                guard let self = self else { return }
-                
-                let work = notification.0
-                let actionAt = notification.1
-                let favoriteWorks =  self.worksIndexModel.favoriteWorks
-                
-                //お気に入り画面にお気に入りしたアイコンの追加 / 解除したアイコンの削除
-                
-                if work.isFavorite {
-                    favoriteWorks.accept(favoriteWorks.value + [work])
-                }
-                else {
-                    favoriteWorks.accept(favoriteWorks.value.filter({ $0.id != work.id }))
-                }
-                
-                if actionAt == Action.index {
-                    self.worksIndexCollectionView?.reloadData()
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        
-        //お気に入り作品のデータ更新時にお気に入り画面のCollectionViewをreload
-        worksIndexModel.favoriteWorks.subscribe(onNext: { [weak self] _ in
-            guard let self = self else { return }
-            self.worksIndexCollectionView?.reloadData()
-        })
-        .disposed(by: disposeBag)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     @IBOutlet weak var worksIndexCollectionView: UICollectionView! {
         didSet {
             worksIndexCollectionView.delegate = self
@@ -64,6 +20,45 @@ class FavoriteWorksIndexViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private let worksIndexModel: WorksIndexModel
+    
+    init(worksIndexModel: WorksIndexModel = .shared) {
+        self.worksIndexModel = worksIndexModel
+        super.init(nibName: nil, bundle: nil)
+        
+        //お気に入りの状態に変更があった時
+        self.worksIndexModel.favoriteValueChanged
+            .subscribe(onNext: { [weak self] notification in
+                guard let self = self else { return }
+                
+                let work = notification.0
+                let actionAt = notification.1
+                let favoriteWorks =  self.worksIndexModel.favoriteWorks
+                
+                //お気に入り画面にお気に入りしたアイコンの追加 / 解除したアイコンの削除
+                if work.isFavorite {
+                    favoriteWorks.accept(favoriteWorks.value + [work])
+                }
+                else {
+                    favoriteWorks.accept(favoriteWorks.value.filter({ $0.id != work.id }))
+                }
+                
+                if actionAt != ActionAt.favorite {
+                    self.worksIndexCollectionView?.reloadData()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        //お気に入り作品のデータ更新時にお気に入り画面のCollectionViewをreload
+        worksIndexModel.favoriteWorks.subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.worksIndexCollectionView?.reloadData()
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +98,7 @@ extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = worksIndexCollectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
-        //一覧画面ではfavoriteworks→works
+
         let works = self.worksIndexModel.favoriteWorks.value
         let index = indexPath.section * 3 + indexPath.row
         
@@ -127,9 +122,7 @@ extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
                 guard let self = self else { return }
                 cell.isFavorite = cell.isFavorite ? false : true
                 work.isFavorite = cell.isFavorite
-                self.worksIndexModel.favoriteValueChanged.accept((work, Action.favorite))
-                // 一覧画面に
-                // DB更新
+                self.worksIndexModel.favoriteValueChanged.accept((work, ActionAt.favorite))
             })
             .disposed(by: cell.disposeBag)
         return cell

@@ -4,17 +4,10 @@
 //
 //  Created by 化田晃平 on R 3/02/14.
 //
-
 import UIKit
-import RxSwift
-import RxCocoa
 
 class WorksIndexTabViewController: UITabBarController {
-
-    private var works: [Work] = []
-    private var favoriteWorks: [Work] = []
     private let repository: AnnictDataRepository
-    private let disposeBag = DisposeBag()
     
     init(repository: AnnictDataRepository) {
         self.repository = repository

@@ -7,15 +7,20 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
 
 //一覧画面・お気に入り画面
 class WorksIndexViewController: UIViewController {
     
-    // DIを利用
-    init(repository: AnnictDataRepository) {
+    private let activityIndicator = UIActivityIndicatorView()
+
+    private let repository: AnnictDataRepository
+    private let worksIndexModel: WorksIndexModel
+    
+    private let disposeBag = DisposeBag()
+    
+    init(repository: AnnictDataRepository, worksIndexModel: WorksIndexModel = .shared) {
         self.repository = repository
-        self.worksIndexModel = .shared
+        self.worksIndexModel = worksIndexModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,11 +38,6 @@ class WorksIndexViewController: UIViewController {
             worksIndexCollectionView.refreshControl = refreshControl
         }
     }
-    
-    private let disposeBag = DisposeBag()
-    private let activityIndicator = UIActivityIndicatorView()
-    private let worksIndexModel: WorksIndexModel
-    private let repository: AnnictDataRepository
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,7 @@ class WorksIndexViewController: UIViewController {
                     self.worksIndexModel.works.accept(works)
                 }
                 
-                if actionAt == Action.favorite {
+                if actionAt != ActionAt.index {
                     self.worksIndexCollectionView?.reloadData()
                 }
             })
@@ -79,7 +79,6 @@ class WorksIndexViewController: UIViewController {
         fetchAPI()
     }
 
-    
     private func setComponent() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
@@ -183,17 +182,13 @@ extension WorksIndexViewController : UICollectionViewDataSource {
         }
  
         // cellを再利用する際にdisposeBagを初期化すること！
-        // お気に入り機能
         cell.favoriteButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 work.isFavorite = !work.isFavorite
                 cell.isFavorite = work.isFavorite
-                self.worksIndexModel.favoriteValueChanged.accept((work, Action.index))
-                // 一覧画面に
-                // DB更新
-                // お気に入り画面のfavroite DIを使って書く
+                self.worksIndexModel.favoriteValueChanged.accept((work, ActionAt.index))
             })
             .disposed(by: cell.disposeBag)
         return cell

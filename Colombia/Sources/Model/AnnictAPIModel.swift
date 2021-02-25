@@ -44,5 +44,3 @@ struct Image: Decodable {
         self.recommendedUrl = try container.decode(String.self, forKey: .recommendedUrl)
     }
 }
-
-
