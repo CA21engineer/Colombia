@@ -108,9 +108,6 @@ final class WorksIndexViewController: UIViewController {
                     let works = decodeData.works
                     self.worksIndexModel.works.accept(works)
                     
-                    let favoriteWorks = works.compactMap { $0.isFavorited ? $0 : nil }
-                    self.worksIndexModel.favoriteWorks.accept(favoriteWorks)
-                    
                     self.collectionView?.reloadData()
                     self.afterFetch()
                 },
