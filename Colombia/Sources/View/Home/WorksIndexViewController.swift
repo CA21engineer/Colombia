@@ -13,7 +13,7 @@ import RxCocoa
 class WorksIndexViewController: UIViewController {
     
     // DIを利用
-    init(repository: AnnictDataRepository){
+    init(repository: AnnictDataRepository) {
         self.repository = repository
         self.worksIndexModel = .shared
         super.init(nibName: nil, bundle: nil)
@@ -40,19 +40,25 @@ class WorksIndexViewController: UIViewController {
     private let repository: AnnictDataRepository
     
     override func viewDidLoad() {
-        print("index viewDidLoad")
         super.viewDidLoad()
         setComponent()
         
         //お気に入りの状態に変更があった時
         worksIndexModel.favoriteValueChanged
-            .subscribe(onNext: { [weak self] work in
+            .subscribe(onNext: { [weak self] notification in
                 guard let self = self else { return }
+                
+                let work = notification.0
+                let actionAt = notification.1
+                
                 let index = self.worksIndexModel.works.value.firstIndex { $0.id == work.id }
                 if let index = index {
                     var works =  self.worksIndexModel.works.value as [Work]
                     works[index].isFavorite = work.isFavorite
                     self.worksIndexModel.works.accept(works)
+                }
+                
+                if actionAt == Action.favorite {
                     self.worksIndexCollectionView?.reloadData()
                 }
             })
@@ -69,15 +75,10 @@ class WorksIndexViewController: UIViewController {
                 })
             .disposed(by: disposeBag)
         
-        //一覧データ更新時に一覧画面のcollectionViewをreload
-        worksIndexModel.works.subscribe(onNext: { [weak self] works in
-            self?.worksIndexCollectionView?.reloadData()
-        })
-        .disposed(by: disposeBag)
-        
         activityIndicator.startAnimating()
         fetchAPI()
     }
+
     
     private func setComponent() {
         let layout = UICollectionViewFlowLayout()
@@ -121,6 +122,7 @@ class WorksIndexViewController: UIViewController {
                        }
                     }
                     self.worksIndexModel.favoriteWorks.accept(favoriteWorks)
+                    self.worksIndexCollectionView?.reloadData()
                     self.afterFetch()
                 },
                 onError: { error in
@@ -131,13 +133,10 @@ class WorksIndexViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    
     private func afterFetch() {
-        
         activityIndicator.stopAnimating()
         worksIndexCollectionView.refreshControl?.endRefreshing()
     }
-    
     
     private func showRetryAlert(with error: Error, retryhandler: @escaping () -> ()) {
         let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
@@ -190,7 +189,8 @@ extension WorksIndexViewController : UICollectionViewDataSource {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 work.isFavorite = !work.isFavorite
-                self.worksIndexModel.favoriteValueChanged.accept(work)
+                cell.isFavorite = work.isFavorite
+                self.worksIndexModel.favoriteValueChanged.accept((work, Action.index))
                 // 一覧画面に
                 // DB更新
                 // お気に入り画面のfavroite DIを使って書く
