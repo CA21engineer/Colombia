@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class WorksIndexTabViewController: UITabBarController {
+final class WorksIndexTabViewController: UITabBarController {
     private let repository: AnnictDataRepository
     
     init(repository: AnnictDataRepository) {
@@ -32,7 +32,7 @@ class WorksIndexTabViewController: UITabBarController {
         favoriteWorksIndexVC.tabBarItem.tag = 2
         favoriteWorksIndexVC.tabBarItem.image = UIImage(named: "favorite")
         
-        let vcList: [UIViewController] = [ worksIndexVC, favoriteWorksIndexVC ]
+        let vcList: [UIViewController] = [worksIndexVC, favoriteWorksIndexVC]
         setViewControllers(vcList, animated: true)
     }
 }

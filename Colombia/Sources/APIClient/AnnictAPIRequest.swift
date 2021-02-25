@@ -44,8 +44,8 @@ struct AnnictAPIRequest:Requestable {
         switch endpoint {
         case .works:
             baseURL.queryItems = [
-                //1ページあたりのデータの数、とりあえず40を指定
-                URLQueryItem(name: "per_page", value: "40"),
+                //1ページあたりのデータの数、とりあえず21を指定
+                URLQueryItem(name: "per_page", value: "21"),
                 //とりあえずid,title,recommended_urlのみを受け取る
                 URLQueryItem(name: "fields", value: "id,title,images"),
                 URLQueryItem(name: "access_token", value: AccessToken.annictAPI),

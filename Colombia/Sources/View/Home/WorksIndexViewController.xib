@@ -11,8 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorksIndexViewController" customModule="Colombia" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="pXW-0Q-IpC" id="dXd-qQ-OAD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="worksIndexCollectionView" destination="pXW-0Q-IpC" id="dSS-pB-HPr"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

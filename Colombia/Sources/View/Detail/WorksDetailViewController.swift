@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WorksDetailViewController: UIViewController {
+final class WorksDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

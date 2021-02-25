@@ -13,8 +13,9 @@ enum ActionAt {
     case favorite
 }
 
-class WorksIndexModel {
+final class WorksIndexModel {
     static let shared = WorksIndexModel()
+    
     let works =  BehaviorRelay<[Work]>(value: [])
     let favoriteWorks = BehaviorRelay<[Work]>(value: [])
     let favoriteValueChanged = PublishRelay<(Work,ActionAt)>()

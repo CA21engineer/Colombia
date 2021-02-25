@@ -9,15 +9,15 @@ import UIKit
 import RxSwift
 import Nuke
 
-class WorksIndexCollectionViewCell: UICollectionViewCell {
+final class WorksIndexCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var iconImageView: UIImageView!
     
     var disposeBag = DisposeBag()
-    var isFavorite : Bool = false {
+    var isFavorited : Bool = false {
         didSet {
-            if isFavorite {
+            if isFavorited {
                 let image = UIImage(named: "red_heart")
                 favoriteButton.setBackgroundImage(image, for: .normal)
             }
@@ -29,20 +29,22 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        isHidden = false
+//        isHidden = false
         disposeBag = DisposeBag()
     }
     
     func configure(work: Work) {
         titleLabel.text = work.title
         
-        guard let imageUrl = work.image.recommendedUrl, imageUrl != "" else {
+        //空文字を入れてどうなるか検証
+//        guard let imageUrl = work.image.recommendedUrl, imageUrl != "" else {
+        guard let imageUrl = "" as String? else {
             let image = UIImage(named: "no_image")
             self.iconImageView.image = image
             return
         }
         if let imageUrl = URL(string: imageUrl) {
-            self.iconImageView.setImage(with: imageUrl)
+            loadImage(with: imageUrl, into: self.iconImageView)
         }
     }
 }
