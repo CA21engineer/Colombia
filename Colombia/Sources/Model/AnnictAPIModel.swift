@@ -30,13 +30,6 @@ struct Work: Decodable {
         self.image = try container.decode(Image.self, forKey: .image)
         self.isFavorite = false
     }
-    
-    init(id: Int, title:String, image: Image, isFavorite: Bool){
-        self.id = id
-        self.title = title
-        self.image = image
-        self.isFavorite = isFavorite
-    }
 }
 
 struct Image: Decodable {
@@ -51,3 +44,5 @@ struct Image: Decodable {
         self.recommendedUrl = try container.decode(String.self, forKey: .recommendedUrl)
     }
 }
+
+

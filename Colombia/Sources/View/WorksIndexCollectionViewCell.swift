@@ -31,7 +31,6 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         isHidden = false
         disposeBag = DisposeBag()
-        
     }
     
     func configure(work: Work) {

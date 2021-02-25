@@ -35,7 +35,6 @@ enum Endpoint {
 struct AnnictAPIRequest:Requestable {
     
     typealias Response = AnnictAPIModel
-    
     private let endpoint: Endpoint
     
     var url: URL {

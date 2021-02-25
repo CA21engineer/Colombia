@@ -9,7 +9,19 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+//一覧画面・お気に入り画面
 class WorksIndexViewController: UIViewController {
+    
+    // DIを利用
+    init(repository: AnnictDataRepository){
+        self.repository = repository
+        self.worksIndexModel = .shared
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     @IBOutlet weak var worksIndexCollectionView: UICollectionView! {
         didSet {
@@ -23,18 +35,53 @@ class WorksIndexViewController: UIViewController {
     }
     
     private let disposeBag = DisposeBag()
-    let activityIndicator = UIActivityIndicatorView()
-    var works: [Work] = []
-    let favoriteValueChanged = PublishRelay<Work>()
+    private let activityIndicator = UIActivityIndicatorView()
+    private let worksIndexModel: WorksIndexModel
+    private let repository: AnnictDataRepository
     
     override func viewDidLoad() {
+        print("index viewDidLoad")
         super.viewDidLoad()
         setComponent()
+        
+        //お気に入りの状態に変更があった時
+        worksIndexModel.favoriteValueChanged
+            .subscribe(onNext: { [weak self] work in
+                guard let self = self else { return }
+                let index = self.worksIndexModel.works.value.firstIndex { $0.id == work.id }
+                if let index = index {
+                    var works =  self.worksIndexModel.works.value as [Work]
+                    works[index].isFavorite = work.isFavorite
+                    self.worksIndexModel.works.accept(works)
+                    self.worksIndexCollectionView?.reloadData()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        //リフレッシュ（お気に入りの時はださないようにしたい）
+        worksIndexCollectionView
+            .refreshControl?
+            .rx
+            .controlEvent(.valueChanged)
+            .subscribe(
+                onNext: { [weak self] in
+                    self?.fetchAPI()
+                })
+            .disposed(by: disposeBag)
+        
+        //一覧データ更新時に一覧画面のcollectionViewをreload
+        worksIndexModel.works.subscribe(onNext: { [weak self] works in
+            self?.worksIndexCollectionView?.reloadData()
+        })
+        .disposed(by: disposeBag)
+        
+        activityIndicator.startAnimating()
+        fetchAPI()
     }
     
     private func setComponent() {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top:20, left:30, bottom:5, right: 30)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
         layout.minimumInteritemSpacing = 5
         let size = UIScreen.main.bounds.size
         let cellSize = (size.width - 30) / 3.5
@@ -54,11 +101,57 @@ class WorksIndexViewController: UIViewController {
             self.view.addSubview(self.activityIndicator)
         }
     }
+    
+    //処理を別のファイルに書き上げる必要はない
+    private func fetchAPI() {
+        repository.fetch()
+            .subscribe(on: SerialDispatchQueueScheduler(qos: .background))
+            .observe(on: MainScheduler.instance)
+            .subscribe(
+                onNext: { [weak self] decodeData in
+                    guard let self = self else { return }
+                    let works = decodeData.works
+                    self.worksIndexModel.works.accept(works)
+                    
+                    //お気に入りデータを更新させる
+                    var favoriteWorks: [Work] = []
+                    for work in works {
+                       if work.isFavorite {
+                         favoriteWorks.append(work)
+                       }
+                    }
+                    self.worksIndexModel.favoriteWorks.accept(favoriteWorks)
+                    self.afterFetch()
+                },
+                onError: { error in
+                    self.showRetryAlert(with: error, retryhandler: { self.fetchAPI() })
+                    self.afterFetch()
+                }
+            )
+            .disposed(by: disposeBag)
+    }
+    
+    
+    private func afterFetch() {
+        
+        activityIndicator.stopAnimating()
+        worksIndexCollectionView.refreshControl?.endRefreshing()
+    }
+    
+    
+    private func showRetryAlert(with error: Error, retryhandler: @escaping () -> ()) {
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Retry", style: .default) { _ in
+            retryhandler()
+        })
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension WorksIndexViewController : UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Int(ceil(Double(works.count) / 3))
+        return Int(ceil(Double(worksIndexModel.works.value.count) / 3))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -73,36 +166,34 @@ extension WorksIndexViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = worksIndexCollectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
-
         
+        let works = self.worksIndexModel.works.value
         let index = indexPath.section * 3 + indexPath.row
-        if index < works.count {
-            let work = works[index]
-            
-            DispatchQueue.main.async {
-                cell.configure(work: work)
-                cell.isFavorite = work.isFavorite
-            }
-        }
-        else {
+        
+        guard index < works.count else {
             DispatchQueue.main.async {
                 cell.isHidden = true
             }
             return cell
         }
         
+        var work = works[index]
+        DispatchQueue.main.async {
+            cell.configure(work: work)
+            cell.isFavorite = work.isFavorite
+        }
+ 
         // cellを再利用する際にdisposeBagを初期化すること！
         // お気に入り機能
         cell.favoriteButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                cell.isFavorite = cell.isFavorite ? false : true
-                let index = indexPath.section * 3 + indexPath.row
-                
-                self.works[index].isFavorite = cell.isFavorite
-                self.favoriteValueChanged.accept(self.works[index])
-                //*****Todo***
+                work.isFavorite = !work.isFavorite
+                self.worksIndexModel.favoriteValueChanged.accept(work)
+                // 一覧画面に
+                // DB更新
+                // お気に入り画面のfavroite DIを使って書く
             })
             .disposed(by: cell.disposeBag)
         return cell
