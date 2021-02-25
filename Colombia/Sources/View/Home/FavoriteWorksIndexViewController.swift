@@ -6,6 +6,7 @@
 //
 import UIKit
 import RxSwift
+import RxCocoa
 
 class FavoriteWorksIndexViewController: UIViewController {
     @IBOutlet weak var worksIndexCollectionView: UICollectionView! {
@@ -120,7 +121,7 @@ extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                cell.isFavorite = cell.isFavorite ? false : true
+                cell.isFavorite = !cell.isFavorite
                 work.isFavorite = cell.isFavorite
                 self.worksIndexModel.favoriteValueChanged.accept((work, ActionAt.favorite))
             })

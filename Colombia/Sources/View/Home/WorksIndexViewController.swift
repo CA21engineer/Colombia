@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 //一覧画面・お気に入り画面
 class WorksIndexViewController: UIViewController {
@@ -102,7 +103,6 @@ class WorksIndexViewController: UIViewController {
         }
     }
     
-    //処理を別のファイルに書き上げる必要はない
     private func fetchAPI() {
         repository.fetch()
             .subscribe(on: SerialDispatchQueueScheduler(qos: .background))
