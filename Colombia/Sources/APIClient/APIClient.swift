@@ -19,12 +19,17 @@ struct APIClient {
             let url = requestable.url
             let request = URLRequest(url: url)
             let task = URLSession.shared.dataTask(with: request) { resultData, response, error in
-                guard let resultData = resultData else { return }
+                guard let resultData = resultData else {
+                    if let error = error {
+                        observer.onError(error)
+                    }
+                    return
+                }
                 do {
                     let decodeData = try decoder.decode(T.Response.self, from: resultData)
                     observer.onNext(decodeData)
                 } catch let error {
-                    print(error)
+                    observer.onError(error)
                 }
             }
             task.resume()
