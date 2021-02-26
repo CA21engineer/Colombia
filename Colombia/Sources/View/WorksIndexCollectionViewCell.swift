@@ -29,16 +29,14 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-//        isHidden = false
+        isHidden = false
         disposeBag = DisposeBag()
     }
     
     func configure(work: Work) {
         titleLabel.text = work.title
         
-        //空文字を入れてどうなるか検証
-        guard let imageUrl = work.image.recommendedUrl, imageUrl != "" else {
-//        guard let imageUrl = "" as String? else {
+        guard let imageUrl = work.image.recommendedUrl else {
             let image = UIImage(named: "no_image")
             self.iconImageView.image = image
             return

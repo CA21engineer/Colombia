@@ -20,7 +20,7 @@ final class FavoriteWorksIndexViewController: UIViewController {
             layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
             layout.minimumInteritemSpacing = 5
 //            let cellSize = (collectionView.bounds.width - 30) / 3.5
-            let cellSize = (250) / 3.5
+            let cellSize = 280 / 3.5
             layout.itemSize = CGSize(width: cellSize, height: cellSize + 15)
             collectionView.collectionViewLayout = layout
             
