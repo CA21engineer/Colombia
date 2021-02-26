@@ -17,6 +17,7 @@ struct Work: Decodable {
     let image: Image
     var isFavorited: Bool
     
+    //Decode用
     enum Key: String, CodingKey {
         case id
         case title
@@ -30,6 +31,7 @@ struct Work: Decodable {
         self.image = try container.decode(Image.self, forKey: .image)
         self.isFavorited = false
     }
+    
 }
 
 struct Image: Decodable {

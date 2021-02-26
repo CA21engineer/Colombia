@@ -38,7 +38,8 @@ final class WorksIndexViewController: UIViewController {
             let layout = UICollectionViewFlowLayout()
             layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
             layout.minimumInteritemSpacing = 5
-            let cellSize = (collectionView.bounds.width - 30) / 3.5
+
+            let cellSize = (250) / 3.5
             layout.itemSize = CGSize(width: cellSize, height: cellSize + 15)
             collectionView.collectionViewLayout = layout
             
@@ -52,6 +53,8 @@ final class WorksIndexViewController: UIViewController {
         super.viewDidLoad()
         setComponent()
         
+        
+        //一覧画面のハートを赤くする灰色にする
         //お気に入りの状態に変更があった時
         worksIndexModel.favoriteValueChanged
             .subscribe(onNext: {[weak self] work, actionAt in
@@ -79,7 +82,15 @@ final class WorksIndexViewController: UIViewController {
             .disposed(by: disposeBag)
         
         activityIndicator.startAnimating()
+       //21個のアニメのデータを一覧画面用に取得
         fetchAPI()
+        
+        // ① Realmからデータを取り出す。
+        // Realm(DB)からお気に入りデータを取り出す。
+        // Result<AnnictData> ->  works [Work]
+        
+        // favoriteWorksの中にそのデータを入れる。
+        // worksIndexModel.favoriteWorks.accept(works)
     }
 
     private func setComponent() {

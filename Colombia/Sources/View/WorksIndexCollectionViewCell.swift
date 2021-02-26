@@ -37,8 +37,8 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
         titleLabel.text = work.title
         
         //空文字を入れてどうなるか検証
-//        guard let imageUrl = work.image.recommendedUrl, imageUrl != "" else {
-        guard let imageUrl = "" as String? else {
+        guard let imageUrl = work.image.recommendedUrl, imageUrl != "" else {
+//        guard let imageUrl = "" as String? else {
             let image = UIImage(named: "no_image")
             self.iconImageView.image = image
             return

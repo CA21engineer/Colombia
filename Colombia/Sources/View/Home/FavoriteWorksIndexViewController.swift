@@ -19,7 +19,8 @@ final class FavoriteWorksIndexViewController: UIViewController {
             let layout = UICollectionViewFlowLayout()
             layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
             layout.minimumInteritemSpacing = 5
-            let cellSize = (collectionView.bounds.width - 30) / 3.5
+//            let cellSize = (collectionView.bounds.width - 30) / 3.5
+            let cellSize = (250) / 3.5
             layout.itemSize = CGSize(width: cellSize, height: cellSize + 15)
             collectionView.collectionViewLayout = layout
             
@@ -42,9 +43,22 @@ final class FavoriteWorksIndexViewController: UIViewController {
                 
                 let favoriteWorks =  self.worksIndexModel.favoriteWorks
                 
-                //お気に入り画面にお気に入りしたアイコンの追加 / 解除したアイコンの削除
-                let value = work.isFavorited ? favoriteWorks.value + [work] : favoriteWorks.value.filter({ $0.id != work.id })
-                favoriteWorks.accept(value)
+                
+                if work.isFavorited {
+                    //お気に入り追加されたとき
+                    let value = favoriteWorks.value + [work]
+                    favoriteWorks.accept(value)
+                    // ② work をRealmに新しく追加する
+                }
+                else {
+                    //お気に入り解除された時
+                    let value = favoriteWorks.value.filter({ $0.id != work.id })
+                    favoriteWorks.accept(value)
+                    // ③work をRealmから削除する
+                }
+                
+//                //お気に入り画面にお気に入りしたアイコンの追加 / 解除したアイコンの削除
+//                let value = work.isFavorited ? favoriteWorks.value + [work] : favoriteWorks.value.filter({ $0.id != work.id })
         
                 if actionAt != ActionAt.favorite {
                     self.collectionView?.reloadData()
