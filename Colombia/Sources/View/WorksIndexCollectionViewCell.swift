@@ -36,13 +36,12 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
     func configure(work: Work) {
         titleLabel.text = work.title
         
-        guard let imageUrl = work.image.recommendedUrl else {
+        if let image = work.image.recommendedUrl, let imageUrl = URL(string: image) {
+            loadImage(with: imageUrl, into: self.iconImageView)
+        }
+        else{
             let image = UIImage(named: "no_image")
             self.iconImageView.image = image
-            return
-        }
-        if let imageUrl = URL(string: imageUrl) {
-            loadImage(with: imageUrl, into: self.iconImageView)
         }
     }
 }

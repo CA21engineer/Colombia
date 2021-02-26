@@ -60,7 +60,7 @@ final class FavoriteWorksIndexViewController: UIViewController {
 //                //お気に入り画面にお気に入りしたアイコンの追加 / 解除したアイコンの削除
 //                let value = work.isFavorited ? favoriteWorks.value + [work] : favoriteWorks.value.filter({ $0.id != work.id })
         
-                if actionAt != ActionAt.favorite {
+                if actionAt != CallingVC.favorite {
                     self.collectionView?.reloadData()
                 }
             })
@@ -94,24 +94,24 @@ final class FavoriteWorksIndexViewController: UIViewController {
 
 extension FavoriteWorksIndexViewController : UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        Int(ceil(Double(worksIndexModel.works.value.count) / 3))
+        Int(ceil(Double(worksIndexModel.works.value.count) / Double(collectionView.rowNum)))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 詳細画面に移動
+        // **TODO** 詳細画面に移動
     }
 }
 
 extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        collectionView.rowNum
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
 
         let works = self.worksIndexModel.favoriteWorks.value
-        let index = indexPath.section * 3 + indexPath.row
+        let index = indexPath.section * collectionView.rowNum + indexPath.row
         
         guard index < works.count else {
             DispatchQueue.main.async {
@@ -131,9 +131,9 @@ extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
             .asDriver()
             .drive(onNext: {[weak self] in
                 guard let self = self else { return }
-                cell.isFavorited = !cell.isFavorited
+                cell.isFavorited.toggle()
                 work.isFavorited = cell.isFavorited
-                self.worksIndexModel.favoriteValueChanged.accept((work, ActionAt.favorite))
+                self.worksIndexModel.favoriteValueChanged.accept((work, CallingVC.favorite))
             })
             .disposed(by: cell.disposeBag)
         return cell

@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-enum ActionAt {
+enum CallingVC {
     case index
     case favorite
 }
@@ -23,8 +23,7 @@ final class WorksIndexModel {
     
     //お気に入りに登録している作品すべて
     let favoriteWorks = BehaviorRelay<[Work]>(value: [])
-    // Observable: 購読される
     
     //お気に入りの状態が変わりました
-    let favoriteValueChanged = PublishRelay<(Work,ActionAt)>()
+    let favoriteValueChanged = PublishRelay<(Work,CallingVC)>()
 }

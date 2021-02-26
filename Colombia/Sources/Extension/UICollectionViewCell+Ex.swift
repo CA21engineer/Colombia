@@ -1,5 +1,5 @@
 //
-//  UICollectionViewCell + Nib + Identifer.swift
+//  UICollectionViewCell+Ex.swift
 //  Colombia
 //
 //  Created by 化田晃平 on R 3/02/17.

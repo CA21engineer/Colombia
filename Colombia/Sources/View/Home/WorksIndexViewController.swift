@@ -46,6 +46,7 @@ final class WorksIndexViewController: UIViewController {
             let refreshControl = UIRefreshControl()
             refreshControl.tintColor = .white
             collectionView.refreshControl = refreshControl
+            
         }
     }
     
@@ -67,7 +68,7 @@ final class WorksIndexViewController: UIViewController {
                     self.worksIndexModel.works.accept(works)
                 }
                 
-                if actionAt != ActionAt.index {
+                if actionAt != CallingVC.index {
                     self.collectionView?.reloadData()
                 }
             })
@@ -123,7 +124,7 @@ final class WorksIndexViewController: UIViewController {
                     self.afterFetch()
                 },
                 onError: {[weak self] error in
-                    self?.showRetryAlert(with: error, retryhandler: {[weak self] in
+                    self?.showRetryAlert(with: error, retryHandler: {[weak self] in
                         self?.activityIndicator.startAnimating()
                         self?.fetchAPI()
                     })
@@ -138,60 +139,62 @@ final class WorksIndexViewController: UIViewController {
         collectionView.refreshControl?.endRefreshing()
     }
     
-    private func showRetryAlert(with error: Error, retryhandler: @escaping () -> ()) {
+    private func showRetryAlert(with error: Error, retryHandler: @escaping () -> ()) {
         let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "Retry", style: .default) { _ in
-            retryhandler()
+            retryHandler()
         })
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true)
     }
 }
 
 extension WorksIndexViewController : UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        Int(ceil(Double(worksIndexModel.works.value.count) / 3))
+        Int(ceil(Double(worksIndexModel.works.value.count) / Double(collectionView.rowNum)))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 詳細画面に移動
+        // *TODO* 詳細画面に移動
     }
 }
 
 extension WorksIndexViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        collectionView.rowNum
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
         
         let works = self.worksIndexModel.works.value
-        let index = indexPath.section * 3 + indexPath.row
+        let index = indexPath.section * collectionView.rowNum + indexPath.row
         
-        guard index < works.count else {
+        if index < works.count {
+            
+            DispatchQueue.main.async {
+                let work = works[index]
+                cell.configure(work: work)
+                cell.isFavorited = work.isFavorited
+            }
+            
+            // cellを再利用する際にdisposeBagを初期化すること！
+            cell.favoriteButton.rx.tap
+                .asDriver()
+                .drive(onNext: {[weak self] in
+                    guard let self = self else { return }
+                    var work = works[index]
+                    work.isFavorited.toggle()
+                    cell.isFavorited = work.isFavorited
+                    self.worksIndexModel.favoriteValueChanged.accept((work, CallingVC.index))
+                })
+                .disposed(by: cell.disposeBag)
+        }
+        else {
             DispatchQueue.main.async {
                 cell.isHidden = true
             }
-            return cell
         }
-        
-        var work = works[index]
-        DispatchQueue.main.async {
-            cell.configure(work: work)
-            cell.isFavorited = work.isFavorited
-        }
- 
-        // cellを再利用する際にdisposeBagを初期化すること！
-        cell.favoriteButton.rx.tap
-            .asDriver()
-            .drive(onNext: {[weak self] in
-                guard let self = self else { return }
-                work.isFavorited = !work.isFavorited
-                cell.isFavorited = work.isFavorited
-                self.worksIndexModel.favoriteValueChanged.accept((work, ActionAt.index))
-            })
-            .disposed(by: cell.disposeBag)
         return cell
     }
 }
