@@ -19,8 +19,7 @@ final class FavoriteWorksIndexViewController: UIViewController {
             let layout = UICollectionViewFlowLayout()
             layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
             layout.minimumInteritemSpacing = 5
-//            let cellSize = (collectionView.bounds.width - 30) / 3.5
-            let cellSize = 280 / 3.5
+            let cellSize = 240 / collectionView.showingRowNum
             layout.itemSize = CGSize(width: cellSize, height: cellSize + 15)
             collectionView.collectionViewLayout = layout
             
@@ -38,11 +37,10 @@ final class FavoriteWorksIndexViewController: UIViewController {
         
         //お気に入りの状態に変更があった時
         self.worksIndexModel.favoriteValueChanged
-            .subscribe(onNext: {[weak self] work, actionAt in
+            .subscribe(onNext: {[weak self] work, callingVC in
                 guard let self = self else { return }
                 
                 let favoriteWorks =  self.worksIndexModel.favoriteWorks
-                
                 
                 if work.isFavorited {
                     //お気に入り追加されたとき
@@ -56,12 +54,11 @@ final class FavoriteWorksIndexViewController: UIViewController {
                     favoriteWorks.accept(value)
                     // ③work をRealmから削除する
                 }
-                
-//                //お気に入り画面にお気に入りしたアイコンの追加 / 解除したアイコンの削除
-//                let value = work.isFavorited ? favoriteWorks.value + [work] : favoriteWorks.value.filter({ $0.id != work.id })
         
-                if actionAt != CallingVC.favorite {
-                    self.collectionView?.reloadData()
+                if callingVC == .index {
+                    DispatchQueue.main.async {
+                        self.collectionView?.reloadData()
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -69,7 +66,9 @@ final class FavoriteWorksIndexViewController: UIViewController {
         //お気に入り作品のデータ更新時にお気に入り画面のCollectionViewをreload
         worksIndexModel.favoriteWorks.subscribe(onNext: {[weak self] _ in
             guard let self = self else { return }
-            self.collectionView?.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
         })
         .disposed(by: disposeBag)
     }
@@ -93,10 +92,6 @@ final class FavoriteWorksIndexViewController: UIViewController {
 }
 
 extension FavoriteWorksIndexViewController : UICollectionViewDelegate {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        Int(ceil(Double(worksIndexModel.works.value.count) / Double(collectionView.rowNum)))
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // **TODO** 詳細画面に移動
     }
@@ -104,14 +99,14 @@ extension FavoriteWorksIndexViewController : UICollectionViewDelegate {
 
 extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView.rowNum
+        worksIndexModel.works.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
 
         let works = self.worksIndexModel.favoriteWorks.value
-        let index = indexPath.section * collectionView.rowNum + indexPath.row
+        let index = indexPath.row
         
         guard index < works.count else {
             DispatchQueue.main.async {
@@ -120,7 +115,7 @@ extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
             return cell
         }
         
-        var work = works[index]
+        let work = works[index]
         DispatchQueue.main.async {
             cell.configure(work: work)
             cell.isFavorited = work.isFavorited
@@ -131,9 +126,10 @@ extension FavoriteWorksIndexViewController : UICollectionViewDataSource {
             .asDriver()
             .drive(onNext: {[weak self] in
                 guard let self = self else { return }
-                cell.isFavorited.toggle()
-                work.isFavorited = cell.isFavorited
-                self.worksIndexModel.favoriteValueChanged.accept((work, CallingVC.favorite))
+                var work = self.worksIndexModel.favoriteWorks.value[index]
+                work.isFavorited.toggle()
+                cell.isFavorited = work.isFavorited
+                self.worksIndexModel.favoriteValueChanged.accept((work, .favorite))
             })
             .disposed(by: cell.disposeBag)
         return cell

@@ -8,7 +8,8 @@
 import RxSwift
 import RxRelay
 
-enum CallingVC {
+//型名に省略形の命名はしない
+enum CallingViewController {
     case index
     case favorite
 }
@@ -25,5 +26,5 @@ final class WorksIndexModel {
     let favoriteWorks = BehaviorRelay<[Work]>(value: [])
     
     //お気に入りの状態が変わりました
-    let favoriteValueChanged = PublishRelay<(Work,CallingVC)>()
+    let favoriteValueChanged = PublishRelay<(Work,CallingViewController)>()
 }

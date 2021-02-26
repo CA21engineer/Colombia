@@ -6,9 +6,8 @@
 //
 
 import UIKit
-
 extension UICollectionView {
-    var rowNum: Int {
+    var showingRowNum: Int {
         get {
             return 3
         }

@@ -11,8 +11,17 @@ import Nuke
 
 final class WorksIndexCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.numberOfLines = 1
+            titleLabel.font = UIFont(name: "Helvetica Neue Bold", size: 10)
+        }
+    }
+    @IBOutlet private weak var iconImageView: UIImageView! {
+        didSet {
+            iconImageView.contentMode = .scaleAspectFill
+        }
+    }
     
     var disposeBag = DisposeBag()
     var isFavorited : Bool = false {
@@ -36,7 +45,7 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
     func configure(work: Work) {
         titleLabel.text = work.title
         
-        if let image = work.image.recommendedUrl, let imageUrl = URL(string: image) {
+        if let imageUrlString = work.image.recommendedUrl, let imageUrl = URL(string: imageUrlString) {
             loadImage(with: imageUrl, into: self.iconImageView)
         }
         else{

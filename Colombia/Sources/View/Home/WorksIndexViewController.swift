@@ -39,14 +39,13 @@ final class WorksIndexViewController: UIViewController {
             layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
             layout.minimumInteritemSpacing = 5
 
-            let cellSize = 280 / 3.5
+            let cellSize = 240 / collectionView.showingRowNum
             layout.itemSize = CGSize(width: cellSize, height: cellSize + 15)
             collectionView.collectionViewLayout = layout
             
             let refreshControl = UIRefreshControl()
             refreshControl.tintColor = .white
             collectionView.refreshControl = refreshControl
-            
         }
     }
     
@@ -58,7 +57,7 @@ final class WorksIndexViewController: UIViewController {
         //一覧画面のハートを赤くする灰色にする
         //お気に入りの状態に変更があった時
         worksIndexModel.favoriteValueChanged
-            .subscribe(onNext: {[weak self] work, actionAt in
+            .subscribe(onNext: {[weak self] work, callingVC in
                 guard let self = self else { return }
                 
                 let index = self.worksIndexModel.works.value.firstIndex { $0.id == work.id }
@@ -68,8 +67,10 @@ final class WorksIndexViewController: UIViewController {
                     self.worksIndexModel.works.accept(works)
                 }
                 
-                if actionAt != CallingVC.index {
-                    self.collectionView?.reloadData()
+                if callingVC == .favorite {
+                    DispatchQueue.main.async {
+                        self.collectionView?.reloadData()
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -150,9 +151,6 @@ final class WorksIndexViewController: UIViewController {
 }
 
 extension WorksIndexViewController : UICollectionViewDelegate {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        Int(ceil(Double(worksIndexModel.works.value.count) / Double(collectionView.rowNum)))
-    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // *TODO* 詳細画面に移動
@@ -161,32 +159,30 @@ extension WorksIndexViewController : UICollectionViewDelegate {
 
 extension WorksIndexViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView.rowNum
+        worksIndexModel.works.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
         
         let works = self.worksIndexModel.works.value
-        let index = indexPath.section * collectionView.rowNum + indexPath.row
+        let index = indexPath.row
         
         if index < works.count {
-            
-            DispatchQueue.main.async {
-                let work = works[index]
-                cell.configure(work: work)
-                cell.isFavorited = work.isFavorited
-            }
+            let work = works[index]
+            cell.configure(work: work)
+            cell.isFavorited = work.isFavorited
             
             // cellを再利用する際にdisposeBagを初期化すること！
             cell.favoriteButton.rx.tap
                 .asDriver()
                 .drive(onNext: {[weak self] in
                     guard let self = self else { return }
-                    var work = works[index]
+                
+                    var work = self.worksIndexModel.works.value[index]
                     work.isFavorited.toggle()
                     cell.isFavorited = work.isFavorited
-                    self.worksIndexModel.favoriteValueChanged.accept((work, CallingVC.index))
+                    self.worksIndexModel.favoriteValueChanged.accept((work, .index))
                 })
                 .disposed(by: cell.disposeBag)
         }
