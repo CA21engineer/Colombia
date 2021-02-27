@@ -37,6 +37,6 @@ final class WorksIndexModel {
     
     // 作品IDがお気に入りに含まれているか
     func isIncludingInFavorite(workId: Int) -> Bool {
-        return favoriteWorks.value.contains{ $0.id == workId }
+        return favoriteWorks.value.contains { $0.id == workId }
     }
 }

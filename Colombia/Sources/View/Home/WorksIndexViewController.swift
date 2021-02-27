@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-//一覧画面
 final class WorksIndexViewController: UIViewController {
     
     private let activityIndicator = UIActivityIndicatorView()
@@ -37,15 +36,21 @@ final class WorksIndexViewController: UIViewController {
             
             let layout = UICollectionViewFlowLayout()
             layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 5, right: 30)
-            layout.minimumInteritemSpacing = 5
-
-            let cellSize = 240 / collectionView.showingRowNum
+            layout.minimumInteritemSpacing = 30
+            
+            let showingRowNum = 3
+            let cellSize = (collectionView.bounds.width - 130) / CGFloat(showingRowNum)
             layout.itemSize = CGSize(width: cellSize, height: cellSize + 15)
             collectionView.collectionViewLayout = layout
             
             let refreshControl = UIRefreshControl()
             refreshControl.tintColor = .white
             collectionView.refreshControl = refreshControl
+            
+            let bgImage = UIImageView()
+            bgImage.image = UIImage(named: "annict")
+            bgImage.contentMode = .scaleToFill
+            collectionView.backgroundView = bgImage
         }
     }
     
@@ -53,26 +58,40 @@ final class WorksIndexViewController: UIViewController {
         super.viewDidLoad()
         setComponent()
         
-        
-        //一覧画面のハートを赤くする灰色にする
         //お気に入りの状態に変更があった時
         worksIndexModel.favoriteValueChanged
-            .subscribe(onNext: {[weak self] work, callingVC in
-                guard let self = self else { return }
+            .subscribe(
+                onNext: {[weak self] work, callingVC in
+                    guard let self = self else { return }
                 
-                let index = self.worksIndexModel.works.value.firstIndex { $0.id == work.id }
-                if let index = index {
-                    var works =  self.worksIndexModel.works.value
-                    works[index].isFavorited = work.isFavorited
-                    self.worksIndexModel.works.accept(works)
-                }
-                
-                if callingVC == .favorite {
-                    DispatchQueue.main.async {
-                        self.collectionView?.reloadData()
+                    let index = self.worksIndexModel.works.value.firstIndex { $0.id == work.id }
+                    if let index = index {
+                        var works =  self.worksIndexModel.works.value
+                        works[index].isFavorited = work.isFavorited
+                        self.worksIndexModel.works.accept(works)
+                    }
+                    
+                    let favoriteWorks =  self.worksIndexModel.favoriteWorks
+                    if work.isFavorited {
+                        //お気に入り追加されたとき
+                        let value = favoriteWorks.value + [work]
+                        favoriteWorks.accept(value)
+                        // ② work をRealmに新しく追加する
+                    }
+                    else {
+                        //お気に入り解除された時
+                        let value = favoriteWorks.value.filter({ $0.id != work.id })
+                        favoriteWorks.accept(value)
+                        // ③work をRealmから削除する
+                    }
+                    
+                    if callingVC == .favorite {
+                        DispatchQueue.main.async {
+                            self.collectionView?.reloadData()
+                        }
                     }
                 }
-            })
+            )
             .disposed(by: disposeBag)
         
         //リフレッシュ（お気に入りの時はださないようにしたい）
@@ -91,19 +110,12 @@ final class WorksIndexViewController: UIViewController {
         
         // favoriteWorksの中にそのデータを入れる。
         // worksIndexModel.favoriteWorks.accept(works)
-
         
        //21個のアニメのデータを一覧画面用に取得
         fetchAPI()
     }
 
     private func setComponent() {
-        
-        let bgImage = UIImageView()
-        bgImage.image = UIImage(named: "annict")
-        bgImage.contentMode = .scaleToFill
-        collectionView.backgroundView = bgImage
-        
         DispatchQueue.main.async {
             // メインスレッドの中にいれないと真ん中にならない
             self.activityIndicator.center = self.view.center
@@ -120,16 +132,16 @@ final class WorksIndexViewController: UIViewController {
             .subscribe(
                 onNext: {[weak self] decodeData in
                     guard let self = self else { return }
-                    
-            
-                    let works = decodeData.works.compactMap {[weak self] in
-                        return WorkForDisplay(id: $0.id,
-                                              title: $0.title,
-                                              image: $0.image,
-                                              isFavorited: self?.worksIndexModel.isIncludingInFavorite(workId: $0.id) ?? false
+
+                    let works = decodeData.works.map {[weak self] in
+                        return WorkForDisplay(
+                            id: $0.id,
+                            title: $0.title,
+                            image: $0.image,
+                            isFavorited: self?.worksIndexModel.isIncludingInFavorite(workId: $0.id) ?? false
                         )
                     }
-                    
+
                     self.worksIndexModel.works.accept(works)
                     self.collectionView?.reloadData()
                     self.afterFetch()
@@ -175,32 +187,24 @@ extension WorksIndexViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorksIndexCollectionViewCell.identifier, for: indexPath) as! WorksIndexCollectionViewCell
         
-        let works = self.worksIndexModel.works.value
         let index = indexPath.row
+        let work = worksIndexModel.works.value[index]
+        cell.configure(work: work)
+        cell.isFavorited = work.isFavorited
         
-        if index < works.count {
-            let work = works[index]
-            cell.configure(work: work)
-            cell.isFavorited = work.isFavorited
-            
-            // cellを再利用する際にdisposeBagを初期化すること！
-            cell.favoriteButton.rx.tap
-                .asDriver()
-                .drive(onNext: {[weak self] in
-                    guard let self = self else { return }
+        // cellを再利用する際にdisposeBagを初期化すること！
+        cell.favoriteButton.rx.tap
+            .subscribe(
+                onNext: {[weak self] in
+                guard let self = self else { return }
                 
                     var work = self.worksIndexModel.works.value[index]
                     work.isFavorited.toggle()
                     cell.isFavorited = work.isFavorited
                     self.worksIndexModel.favoriteValueChanged.accept((work, .index))
                 })
-                .disposed(by: cell.disposeBag)
-        }
-        else {
-            DispatchQueue.main.async {
-                cell.isHidden = true
-            }
-        }
+            .disposed(by: cell.disposeBag)
+        
         return cell
     }
 }

@@ -10,7 +10,7 @@ import RxSwift
 import Nuke
 
 final class WorksIndexCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet private(set) weak var favoriteButton: UIButton!
     @IBOutlet private weak var titleLabel: UILabel! {
         didSet {
             titleLabel.numberOfLines = 1
@@ -38,7 +38,6 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        isHidden = false
         disposeBag = DisposeBag()
     }
     
@@ -48,7 +47,7 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
         if let imageUrlString = work.image.recommendedUrl, let imageUrl = URL(string: imageUrlString) {
             loadImage(with: imageUrl, into: self.iconImageView)
         }
-        else{
+        else {
             let image = UIImage(named: "no_image")
             self.iconImageView.image = image
         }
