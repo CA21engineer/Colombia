@@ -121,8 +121,15 @@ final class WorksIndexViewController: UIViewController {
                 onNext: {[weak self] decodeData in
                     guard let self = self else { return }
                     
-                    //isFavorited = falseの部分はお気に入りの中にこのidのものが存在するかチェックする事でtrueかfalseか判断できるように
-                    let works = decodeData.works.map { WorkForDisplay(id: $0.id, title: $0.title, image: $0.image, isFavorited: self.worksIndexModel.isIncludingInFavorite(workId: $0.id)) }
+            
+                    let works = decodeData.works.compactMap {[weak self] in
+                        return WorkForDisplay(id: $0.id,
+                                              title: $0.title,
+                                              image: $0.image,
+                                              isFavorited: self?.worksIndexModel.isIncludingInFavorite(workId: $0.id) ?? false
+                        )
+                    }
+                    
                     self.worksIndexModel.works.accept(works)
                     self.collectionView?.reloadData()
                     self.afterFetch()
