@@ -16,7 +16,6 @@ struct Work: Decodable {
     let title: String
     let image: Image
     
-    //Decode用
     enum Key: String, CodingKey {
         case id
         case title
