@@ -19,21 +19,28 @@ struct APIClient {
             let url = requestable.url
             let request = URLRequest(url: url)
             let task = URLSession.shared.dataTask(with: request) { resultData, response, error in
-                guard let resultData = resultData else {
-                    if let error = error {
-                        observer.onError(error)
-                    }
+                if let error = error {
+                    observer.onError(APIError.unknown(error))
+                }
+                guard let resultData = resultData, response != nil else {
+                    observer.onError(APIError.response)
                     return
                 }
                 do {
                     let decodeData = try decoder.decode(T.Response.self, from: resultData)
                     observer.onNext(decodeData)
                 } catch let error {
-                    observer.onError(error)
+                    observer.onError(APIError.decode(error))
                 }
             }
             task.resume()
             return Disposables.create()
         }
     }
+}
+
+enum APIError: Error {
+    case decode(Error)
+    case response
+    case unknown(Error)
 }
