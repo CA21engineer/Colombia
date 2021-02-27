@@ -7,26 +7,33 @@
 
 import UIKit
 
-class WorksIndexTabViewController: UITabBarController {
-
+final class WorksIndexTabViewController: UITabBarController {
+    private let repository: AnnictDataRepository
+    
+    init(repository: AnnictDataRepository) {
+        self.repository = repository
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // ここでAPIリクエストを取得し
-        // 一覧用レポジトリとお気に入り用レポジトリを作成
-        // WorksIndexViewControllerの引数にレポジトリを入れてあげる
-
-        let worksIndexVC = WorksIndexViewController()
+        let worksIndexVC = WorksIndexViewController(repository: repository)
+        let favoriteWorksIndexVC = FavoriteWorksIndexViewController()
+        
         worksIndexVC.tabBarItem.title = "一覧"
         worksIndexVC.tabBarItem.tag = 1
         worksIndexVC.tabBarItem.image = UIImage(named: "document")
         
-        let favoriteWorksIndexVC = WorksIndexViewController()
         favoriteWorksIndexVC.tabBarItem.title = "お気に入り"
         favoriteWorksIndexVC.tabBarItem.tag = 2
         favoriteWorksIndexVC.tabBarItem.image = UIImage(named: "favorite")
         
-        let vcList: [ UIViewController ] = [ worksIndexVC, favoriteWorksIndexVC ]
+        let vcList: [UIViewController] = [worksIndexVC, favoriteWorksIndexVC]
         setViewControllers(vcList, animated: true)
     }
 }

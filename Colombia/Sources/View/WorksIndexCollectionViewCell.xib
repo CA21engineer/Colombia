@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="159" height="189"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ルフィ.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="D1T-Yy-J1n">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="D1T-Yy-J1n">
                         <rect key="frame" x="5" y="5" width="149" height="149"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="D1T-Yy-J1n" secondAttribute="height" multiplier="1:1" id="H1E-ge-6bS"/>
@@ -44,7 +45,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ONE PIECE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipp-7H-qkx">
                         <rect key="frame" x="0.0" y="159" width="159" height="30"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -74,12 +75,13 @@
             <size key="customSize" width="159" height="189"/>
             <connections>
                 <outlet property="favoriteButton" destination="Lj2-8H-Rhi" id="4sW-ZZ-1qg"/>
+                <outlet property="iconImageView" destination="D1T-Yy-J1n" id="KSr-Fq-2ya"/>
+                <outlet property="titleLabel" destination="ipp-7H-qkx" id="A3r-BI-VBj"/>
             </connections>
             <point key="canvasLocation" x="-176.08695652173915" y="4.3526785714285712"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="gray_heart.png" width="256" height="256"/>
-        <image name="ルフィ.jpeg" width="225" height="225"/>
     </resources>
 </document>

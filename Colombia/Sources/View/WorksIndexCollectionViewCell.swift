@@ -7,13 +7,26 @@
 
 import UIKit
 import RxSwift
+import Nuke
 
-class WorksIndexCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var favoriteButton: UIButton!
-    var disposeBag = DisposeBag()
-    var isFavorite : Bool = false {
+final class WorksIndexCollectionViewCell: UICollectionViewCell {
+    @IBOutlet private(set) weak var favoriteButton: UIButton!
+    @IBOutlet private weak var titleLabel: UILabel! {
         didSet {
-            if isFavorite {
+            titleLabel.numberOfLines = 1
+            titleLabel.font = UIFont(name: "Helvetica Neue Bold", size: 10)
+        }
+    }
+    @IBOutlet private weak var iconImageView: UIImageView! {
+        didSet {
+            iconImageView.contentMode = .scaleAspectFill
+        }
+    }
+    
+    var disposeBag = DisposeBag()
+    var isFavorited : Bool = false {
+        didSet {
+            if isFavorited {
                 let image = UIImage(named: "red_heart")
                 favoriteButton.setBackgroundImage(image, for: .normal)
             }
@@ -28,11 +41,15 @@ class WorksIndexCollectionViewCell: UICollectionViewCell {
         disposeBag = DisposeBag()
     }
     
-    static var identifier: String {
-        String(describing: self)
-    }
-    
-    static var nib: UINib {
-        UINib(nibName: identifier, bundle: nil)
+    func configure(work: WorkForDisplay) {
+        titleLabel.text = work.title
+        
+        if let imageUrlString = work.image.recommendedUrl, let imageUrl = URL(string: imageUrlString) {
+            loadImage(with: imageUrl, into: self.iconImageView)
+        }
+        else {
+            let image = UIImage(named: "no_image")
+            self.iconImageView.image = image
+        }
     }
 }
