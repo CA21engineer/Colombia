@@ -84,15 +84,17 @@ final class WorksIndexViewController: UIViewController {
             .disposed(by: disposeBag)
         
         activityIndicator.startAnimating()
-       //21個のアニメのデータを一覧画面用に取得
-        fetchAPI()
         
-        // ① Realmからデータを取り出す。
+        // ① Realmからデータを取り出す。(API取得の前に行う⇨そのデータを用いてtrueかfalseか判断できるようにするため）
         // Realm(DB)からお気に入りデータを取り出す。
         // Result<AnnictData> ->  works [Work]
         
         // favoriteWorksの中にそのデータを入れる。
         // worksIndexModel.favoriteWorks.accept(works)
+
+        
+       //21個のアニメのデータを一覧画面用に取得
+        fetchAPI()
     }
 
     private func setComponent() {
@@ -118,9 +120,10 @@ final class WorksIndexViewController: UIViewController {
             .subscribe(
                 onNext: {[weak self] decodeData in
                     guard let self = self else { return }
-                    let works = decodeData.works
-                    self.worksIndexModel.works.accept(works)
                     
+                    //isFavorited = falseの部分はお気に入りの中にこのidのものが存在するかチェックする事でtrueかfalseか判断できるように
+                    let works = decodeData.works.map { WorkForDisplay(id: $0.id, title: $0.title, image: $0.image, isFavorited: self.worksIndexModel.isIncludingInFavorite(workId: $0.id)) }
+                    self.worksIndexModel.works.accept(works)
                     self.collectionView?.reloadData()
                     self.afterFetch()
                 },

@@ -42,7 +42,7 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
         disposeBag = DisposeBag()
     }
     
-    func configure(work: Work) {
+    func configure(work: WorkForDisplay) {
         titleLabel.text = work.title
         
         if let imageUrlString = work.image.recommendedUrl, let imageUrl = URL(string: imageUrlString) {

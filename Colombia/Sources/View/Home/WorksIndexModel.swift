@@ -14,17 +14,29 @@ enum CallingViewController {
     case favorite
 }
 
+struct WorkForDisplay {
+    let id: Int
+    let title: String
+    let image: Image
+    var isFavorited: Bool
+}
+
 final class WorksIndexModel {
     static let shared = WorksIndexModel()
     
     //UI用に準備している変数
     
     //一覧画面表示用の作品
-    let works =  BehaviorRelay<[Work]>(value: [])
+    let works =  BehaviorRelay<[WorkForDisplay]>(value: [])
     
     //お気に入りに登録している作品すべて
-    let favoriteWorks = BehaviorRelay<[Work]>(value: [])
+    let favoriteWorks = BehaviorRelay<[WorkForDisplay]>(value: [])
     
     //お気に入りの状態が変わりました
-    let favoriteValueChanged = PublishRelay<(Work,CallingViewController)>()
+    let favoriteValueChanged = PublishRelay<(WorkForDisplay,CallingViewController)>()
+    
+    // 作品IDがお気に入りに含まれているか
+    func isIncludingInFavorite(workId: Int) -> Bool {
+        return favoriteWorks.value.contains{ $0.id == workId }
+    }
 }
