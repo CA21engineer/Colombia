@@ -21,7 +21,7 @@ enum AccessToken {
 }
 
 enum Endpoint {
-    //とりあえずworksだけ実装
+    //TODO:とりあえずworksだけ実装
     case works
     
     func endpoint() -> String {
@@ -45,9 +45,9 @@ struct AnnictAPIRequest:Requestable {
         switch endpoint {
         case .works:
             baseURL.queryItems = [
-                //1ページあたりのデータの数、とりあえず20を指定
+                // TODO: 1ページあたりのデータの数、とりあえず20を指定
                 URLQueryItem(name: "per_page", value: "20"),
-                //とりあえずid,title,recommended_urlのみを受け取る
+                // TODO: とりあえずid,title,recommended_urlのみを受け取る
                 URLQueryItem(name: "fields", value: "id,title,images"),
                 URLQueryItem(name: "access_token", value: AccessToken.annictAPI)
             ]
