@@ -21,7 +21,7 @@ enum AccessToken {
 }
 
 enum Endpoint {
-    //TODO:とりあえずworksだけ実装
+    // TODO: とりあえずworksだけ実装
     case works
     
     func endpoint() -> String {
