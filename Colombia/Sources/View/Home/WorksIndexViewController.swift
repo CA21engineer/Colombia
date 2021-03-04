@@ -104,13 +104,6 @@ final class WorksIndexViewController: UIViewController {
         
         activityIndicator.startAnimating()
         
-        // ① Realmからデータを取り出す。(API取得の前に行う⇨そのデータを用いてtrueかfalseか判断できるようにするため）
-        // Realm(DB)からお気に入りデータを取り出す。
-        // Result<AnnictData> ->  works [Work]
-        
-        // favoriteWorksの中にそのデータを入れる。
-        // worksIndexModel.favoriteWorks.accept(works)
-        
        //21個のアニメのデータを一覧画面用に取得
         fetchAPI()
     }
