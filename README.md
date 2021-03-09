@@ -1,5 +1,11 @@
 # Colombia
-iOS チームコロンビア 2月開発
+
+![Annict](https://user-images.githubusercontent.com/59905087/110408396-ce6d0d80-80c8-11eb-9176-3dfcf947d3ba.png)
+
+
+## Demo
+- https://gyazo.com/efc7fd7309eb2fab9df67e537da804ec
+
 
 ## スケジュール
   - 開発期間: 2/2(火) ~ 2/28(日)
@@ -20,3 +26,4 @@ iOS チームコロンビア 2月開発
     - プレフィックス/#{Issueの番号}
       - `feature/#{Issueの番号}` 機能作成時に用いる
       - `fix/#{Issueの番号}` 既存の機能の修正時に用いる
+- 
