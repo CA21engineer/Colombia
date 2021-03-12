@@ -1,6 +1,10 @@
 
 
 # Colombia
+- AnnictAPI(https://developers.annict.jp)
+  からアニメ作品の情報をスマホのアプリのようなUIで表示させて自由にお気に入りできるアプリです。
+
+
 |一覧画面|お気に入り画面|
 |:-----:|:--------:|
 |<img src="https://user-images.githubusercontent.com/59905087/110882089-c27d8780-8324-11eb-8410-d260c78cb708.png" width="200px"> | <img src="https://user-images.githubusercontent.com/59905087/110882125-d0330d00-8324-11eb-9bc6-d12983799a34.png" width="200px"> |
