@@ -1,11 +1,12 @@
 
+
 # Colombia
 |一覧画面|お気に入り画面|
 |:-----:|:--------:|
 |<img src="https://user-images.githubusercontent.com/59905087/110882089-c27d8780-8324-11eb-8410-d260c78cb708.png" width="200px"> | <img src="https://user-images.githubusercontent.com/59905087/110882125-d0330d00-8324-11eb-9bc6-d12983799a34.png" width="200px"> |
 
 ## Demo
-https://s17.aconvert.com/convert/p3r68-cdx67/x4bvn-f3gc7.gif
+![Videotogif](https://user-images.githubusercontent.com/59905087/110885542-661d6680-832a-11eb-9213-c9d01b855959.gif)
 
 ## スケジュール
   - 開発期間: 2/2(火) ~ 2/28(日)
