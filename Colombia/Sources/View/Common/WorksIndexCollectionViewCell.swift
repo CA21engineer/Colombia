@@ -9,12 +9,12 @@ import UIKit
 import RxSwift
 import Nuke
 
-final class WorksIndexCollectionViewCell: UICollectionViewCell {
+final class WorksIndexCollectionViewCell: UICollectionViewCell { // TODO: 名前とか諸々変える
     @IBOutlet private(set) weak var favoriteButton: UIButton!
     @IBOutlet private weak var titleLabel: UILabel! {
         didSet {
             titleLabel.numberOfLines = 1
-            titleLabel.font = UIFont(name: "Helvetica Neue Bold", size: 10)
+            titleLabel.font = .systemFont(ofSize: 14, weight: .bold)
         }
     }
     @IBOutlet private weak var iconImageView: UIImageView! {
@@ -24,7 +24,7 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
     }
     
     var disposeBag = DisposeBag()
-    var isFavorited : Bool = false {
+    var isFavorited: Bool = false {
         didSet {
             if isFavorited {
                 let image = UIImage(named: "red_heart")
@@ -41,13 +41,12 @@ final class WorksIndexCollectionViewCell: UICollectionViewCell {
         disposeBag = DisposeBag()
     }
     
-    func configure(work: WorkForDisplay) {
+    func configure(work: Work) {
         titleLabel.text = work.title
         
-        if let imageUrlString = work.image.recommendedUrl, let imageUrl = URL(string: imageUrlString) {
+        if let imageUrlString = work.imageURL, let imageUrl = URL(string: imageUrlString) {
             loadImage(with: imageUrl, into: self.iconImageView)
-        }
-        else {
+        } else {
             let image = UIImage(named: "no_image")
             self.iconImageView.image = image
         }

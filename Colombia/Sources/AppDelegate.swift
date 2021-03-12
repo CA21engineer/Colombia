@@ -8,8 +8,7 @@
 import UIKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -17,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             let window = UIWindow(frame: UIScreen.main.bounds)
             self.window = window
-            window.rootViewController = WorksIndexTabViewController(repository: AnnictDataRepository())
+            window.rootViewController = TabViewController()
             window.makeKeyAndVisible()
         }
         return true

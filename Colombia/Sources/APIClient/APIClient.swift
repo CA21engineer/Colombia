@@ -9,31 +9,34 @@ import Foundation
 import RxSwift
 
 struct APIClient {
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        return decoder
-    }()
+    private let decoder = JSONDecoder()
     
-    func request<T: Requestable>(_ requestable: T) -> Observable<T.Response> {
-        Observable<T.Response>.create { observer in
-            let url = requestable.url
-            let request = URLRequest(url: url)
-            let task = URLSession.shared.dataTask(with: request) { resultData, response, error in
-                guard let resultData = resultData else {
-                    if let error = error {
-                        observer.onError(error)
-                    }
+    func request<T: Requestable>(_ request: T) -> Single<T.Response> {
+        Single<T.Response>.create { single in
+            let task = URLSession.shared.dataTask(with: request.url) { data, _, error in
+                if let error = error {
+                    single(.failure(error))
+                }
+
+                guard let data = data else {
+                    single(.failure(APIError.resultNotFound))
                     return
                 }
+
                 do {
-                    let decodeData = try decoder.decode(T.Response.self, from: resultData)
-                    observer.onNext(decodeData)
+                    let response = try decoder.decode(T.Response.self, from: data)
+                    single(.success(response))
                 } catch let error {
-                    observer.onError(error)
+                    single(.failure(APIError.decodeFailed(error)))
                 }
             }
             task.resume()
             return Disposables.create()
         }
     }
+}
+
+enum APIError: Error {
+    case resultNotFound
+    case decodeFailed(Error)
 }
