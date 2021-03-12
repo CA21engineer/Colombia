@@ -1,10 +1,8 @@
+
 # Colombia
-
-![Annict](https://user-images.githubusercontent.com/59905087/110408396-ce6d0d80-80c8-11eb-9176-3dfcf947d3ba.png)
-
-
-## Demo
-- https://gyazo.com/efc7fd7309eb2fab9df67e537da804ec
+|一覧画面|お気に入り画面|
+|:-----:|:--------:|
+|<img src="https://user-images.githubusercontent.com/59905087/110882089-c27d8780-8324-11eb-8410-d260c78cb708.png" width="200px"> | <img src="https://user-images.githubusercontent.com/59905087/110882125-d0330d00-8324-11eb-9bc6-d12983799a34.png" width="200px"> |
 
 
 ## スケジュール
