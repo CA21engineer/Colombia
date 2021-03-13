@@ -8,8 +8,12 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RealmSwift
+
 
 final class WorksIndexViewController: UIViewController {
+    
+    var realm: Realm!
     
     private let activityIndicator = UIActivityIndicatorView()
 
@@ -58,6 +62,9 @@ final class WorksIndexViewController: UIViewController {
         super.viewDidLoad()
         setComponent()
         
+        realm = try! Realm()
+        
+        
         //お気に入りの状態に変更があった時
         worksIndexModel.favoriteValueChanged
             .subscribe(
@@ -77,12 +84,30 @@ final class WorksIndexViewController: UIViewController {
                         let value = favoriteWorks.value + [work]
                         favoriteWorks.accept(value)
                         // ② work をRealmに新しく追加する
+                        let newRealmWork = RealmWork()
+                        newRealmWork.id = work.id
+                        newRealmWork.title = work.title
+                        newRealmWork.image = work.image.recommendedUrl ?? "undefined"
+                        
+                        try! self.realm.write {
+                            self.realm.add(newRealmWork)
+                        }
                     }
                     else {
                         //お気に入り解除された時
                         let value = favoriteWorks.value.filter({ $0.id != work.id })
                         favoriteWorks.accept(value)
                         // ③work をRealmから削除する
+                        //全部取得
+                        let testRealm = self.realm.objects(RealmWork.self)
+                        //lazyを解消するためにcompactMapしてる
+                        guard let selectedItem = testRealm.filter({ $0.id != work.id }).compactMap({$0}).first else {
+                            return
+                        }
+
+                        try! self.realm.write {
+                            self.realm.delete(selectedItem)
+                        }
                     }
                     
                     if callingVC == .favorite {
@@ -106,10 +131,13 @@ final class WorksIndexViewController: UIViewController {
         
         // ① Realmからデータを取り出す。(API取得の前に行う⇨そのデータを用いてtrueかfalseか判断できるようにするため）
         // Realm(DB)からお気に入りデータを取り出す。
+        let realmData = self.realm.objects(RealmWork.self)
         // Result<AnnictData> ->  works [Work]
+        let favoritesArray: [WorkForDisplay] = realmData.compactMap({
+            WorkForDisplay.init(id: $0.id, title: $0.title, image: Image(url: $0.image), isFavorited: $0.isFavorite)
+        })
         
-        // favoriteWorksの中にそのデータを入れる。
-        // worksIndexModel.favoriteWorks.accept(works)
+        self.worksIndexModel.favoriteWorks.accept(favoritesArray)
         
        //21個のアニメのデータを一覧画面用に取得
         fetchAPI()

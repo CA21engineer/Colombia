@@ -28,6 +28,12 @@ struct Work: Decodable {
         self.title = try container.decode(String.self, forKey: .title)
         self.image = try container.decode(Image.self, forKey: .image)
     }
+    
+    init(id: Int, title: String, image: Image) {
+        self.id = id
+        self.title = title
+        self.image = image
+    }
 }
 
 struct Image: Decodable {
@@ -40,5 +46,9 @@ struct Image: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
         self.recommendedUrl = try container.decode(String.self, forKey: .recommendedUrl)
+    }
+    
+    init(url: String) {
+        self.recommendedUrl = url
     }
 }
